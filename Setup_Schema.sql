@@ -9,12 +9,12 @@ USE Allstar_Team;
 # Create table CHAMPIONSHIP_TEAM if it does not already exist
 CREATE TABLE IF NOT EXISTS CHAMPIONSHIP_TEAM
 (
-  Id                  INT           NOT NULL,
+  Id                  INT UNIQUE    NOT NULL,
   Team_name           VARCHAR(45)   NOT NULL,
-  Coach_ssn           INT           NOT NULL,
-  Assistant_Coach_Ssn INT           NOT NULL,
+  Coach_ssn           INT UNIQUE    NOT NULL,
+  Assistant_Coach_Ssn INT UNIQUE,
   University          VARCHAR(45)   NOT NULL,
-  Team_rank           INT           NOT NULL,
+  Team_rank           INT UNIQUE    NOT NULL,
   Win                 INT DEFAULT 0 NOT NULL,
   Lost                INT DEFAULT 0 NOT NULL,
   Tie                 INT DEFAULT 0 NOT NULL,
@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS CHAMPIONSHIP_TEAM
 # Create table PLAYERS if it does not already exist
 CREATE TABLE IF NOT EXISTS PLAYERS
 (
-  Ssn          INT           NOT NULL,
-  Team_id      INT           NOT NULL,
+  Ssn          INT UNIQUE    NOT NULL,
+  Team_id      INT UNIQUE    NOT NULL,
   Name         VARCHAR(45)   NOT NULL,
   Address      VARCHAR(60)   NOT NULL,
   Birth_date   DATE          NOT NULL,
@@ -50,15 +50,15 @@ CREATE TABLE IF NOT EXISTS PLAYERS
 # Create table COACH if it does not already exist
 CREATE TABLE IF NOT EXISTS COACH
 (
-  Ssn         INT         NOT NULL,
-  Name        VARCHAR(45) NOT NULL,
+  Ssn         INT UNIQUE    NOT NULL,
+  Name        VARCHAR(45)   NOT NULL,
   Address     VARCHAR(60),
-  Birth_date  DATE        NOT NULL,
-  University  VARCHAR(45) NOT NULL,
-  Years_uni   INT         NOT NULL,
-  Years_total INT         NOT NULL,
-  Champs_wins INT         NOT NULL,
-  Semifinals  INT         NOT NULL,
+  Birth_date  DATE          NOT NULL,
+  University  VARCHAR(45)   NOT NULL,
+  Years_uni   INT DEFAULT 0 NOT NULL,
+  Years_total INT DEFAULT 0 NOT NULL,
+  Champs_wins INT DEFAULT 0 NOT NULL,
+  Semifinals  INT DEFAULT 0 NOT NULL,
   CONSTRAINT PK_Coach_Ssn
     PRIMARY KEY (Ssn)
 );
@@ -66,15 +66,15 @@ CREATE TABLE IF NOT EXISTS COACH
 # Create table ASSISTANT_COACH if it does not already exist
 CREATE TABLE IF NOT EXISTS ASSISTANT_COACH
 (
-  Ssn            INT         NOT NULL,
-  Name           VARCHAR(45) NOT NULL,
+  Ssn            INT UNIQUE    NOT NULL,
+  Name           VARCHAR(45)   NOT NULL,
   Address        VARCHAR(60),
-  Birth_date     DATE        NOT NULL,
-  Team_id        INT         NOT NULL,
-  University     VARCHAR(45) NOT NULL,
-  Years_uni      INT         NOT NULL,
-  Years_total    INT         NOT NULL,
-  Specialization INT         NOT NULL,
+  Birth_date     DATE          NOT NULL,
+  Team_id        INT UNIQUE    NOT NULL,
+  University     VARCHAR(45)   NOT NULL,
+  Years_uni      INT DEFAULT 0 NOT NULL,
+  Years_total    INT DEFAULT 0 NOT NULL,
+  Specialization VARCHAR(45)   NOT NULL,
   CONSTRAINT PK_Ass_Coach_Ssn
     PRIMARY KEY (Ssn)
 );
@@ -97,9 +97,9 @@ CREATE TABLE IF NOT EXISTS ALLSTAR_GAME
 (
   Date                DATE          NOT NULL,
   Location            VARCHAR(60)   NOT NULL,
-  Team_id             INT           NOT NULL,
-  Coach_ssn           INT           NOT NULL,
-  Assistant_coach_ssn INT           NOT NULL,
+  Team_id             INT UNIQUE    NOT NULL,
+  Coach_ssn           INT UNIQUE    NOT NULL,
+  Assistant_coach_ssn INT UNIQUE    NOT NULL,
   Score               INT DEFAULT 0 NOT NULL,
   CONSTRAINT PK_Game_Date_Location
     PRIMARY KEY (Date, Location),
@@ -123,17 +123,9 @@ CREATE TABLE IF NOT EXISTS ALLSTAR_GAME
 # Create table ALLSTAR_NOMINEES if it does not already exist
 CREATE TABLE IF NOT EXISTS ALLSTAR_NOMINEES
 (
-  Ssn          INT         NOT NULL,
-  Date         DATE        NOT NULL,
-  Location     VARCHAR(60) NOT NULL,
-  Name         VARCHAR(45) NOT NULL,
-  Address      VARCHAR(60) NOT NULL,
-  Birth_date   DATE        NOT NULL,
-  Position     VARCHAR(20) NOT NULL,
-  University   VARCHAR(20) NOT NULL,
-  Years_team   INT         NOT NULL,
-  Class        VARCHAR(20) NOT NULL,
-  Time_allstar INT         NOT NULL,
+  Ssn      INT UNIQUE  NOT NULL,
+  Date     DATE        NOT NULL,
+  Location VARCHAR(60) NOT NULL,
   CONSTRAINT PK_Nominees_Ssn_Date_Location
     PRIMARY KEY (Ssn, Date, Location),
   CONSTRAINT FK_Nominees_Date_Location
