@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS CHAMPIONSHIP_TEAM
 CREATE TABLE IF NOT EXISTS PLAYERS
 (
   SSN                   INT UNIQUE    NOT NULL,
-  CHAMPIONSHIP_TEAMS_ID INT UNIQUE    NOT NULL,
+  CHAMPIONSHIP_TEAMS_ID INT           NOT NULL,
   Name                  VARCHAR(45)   NOT NULL,
   Address               VARCHAR(60)   NOT NULL,
   Birth_date            DATE          NOT NULL,
@@ -90,9 +90,9 @@ CREATE TABLE IF NOT EXISTS ALLSTAR_GAME
 (
   Date                  DATE                        NOT NULL,
   Location              VARCHAR(60)                 NOT NULL,
-  CHAMPIONSHIP_TEAMS_ID INT UNIQUE                  NOT NULL,
-  COACH_SSN             INT UNIQUE                  NOT NULL,
-  ASSISTANT_COACH_SSN   INT UNIQUE,
+  CHAMPIONSHIP_TEAMS_ID INT                         NOT NULL,
+  COACH_SSN             INT                         NOT NULL,
+  ASSISTANT_COACH_SSN   INT,
   Score                 VARCHAR(10) DEFAULT '0 - 0' NOT NULL,
   CONSTRAINT PK_GAME_Date_Location
     PRIMARY KEY (Date, Location),
@@ -116,12 +116,12 @@ CREATE TABLE IF NOT EXISTS ALLSTAR_GAME
 # Create table ALLSTAR_NOMINEES if it does not already exist
 CREATE TABLE IF NOT EXISTS ALLSTAR_NOMINEES
 (
-  PLAYERS_SSN           INT UNIQUE    NOT NULL,
-  ALLSTAR_GAME_Date     DATE          NOT NULL,
-  ALLSTAR_GAME_Location VARCHAR(60)   NOT NULL,
-  Player_rank           INT DEFAULT 0 NOT NULL,
-  CONSTRAINT CHK_Player_Rank
-    CHECK (Player_rank BETWEEN 1 AND 10),
+  PLAYERS_SSN           INT UNIQUE  NOT NULL,
+  ALLSTAR_GAME_Date     DATE        NOT NULL,
+  ALLSTAR_GAME_Location VARCHAR(60) NOT NULL,
+  PLAYER_Rank           INT         NOT NULL,
+  CONSTRAINT CHK_PLAYER_Rank
+    CHECK (PLAYER_rank BETWEEN 1 AND 10),
   CONSTRAINT PK_NOMINEES_SSN_Date_Location
     PRIMARY KEY (PLAYERS_SSN, ALLSTAR_GAME_Date, ALLSTAR_GAME_Location),
   CONSTRAINT FK_NOMINEES_GAME_Date_Location
