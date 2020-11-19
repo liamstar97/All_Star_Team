@@ -1,0 +1,5 @@
+LOAD DATA INFILE 'C:\Users\Kylew\Dropbox\CS331\Project\All_Star_Team\Employees.csv'
+INTO TABLE PLAYERS
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;

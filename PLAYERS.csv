@@ -1,0 +1,50 @@
+SSN,CHAMPIONSHIP_TEAMS_ID,Name,Address,Birth_date,Position,University,Years_team,Class,Time_allstar
+111111100,1,Jared James,"123 Peachtree, Atlanta, GA",10/10/1966,forward,WWU,3,freshman,3
+111111101,1,Jon Jones,"111 Allgood, Atlanta, GA",11/14/1967,center,WWU,3,sophomore,3
+111111102,1,Justin Mark,"2342 May, Atlanta, GA",1/12/1966,quarterback,WWU,1,junior,2
+222222200,1,Evan Wallis,"134 Pelham, Milwaukee, WI",1/16/1958,offensive guard,WWU,1,senior,4
+222222201,1,Josh Zell,"266 McGrady, Milwaukee, WI",5/22/1954,defense,WWU,4,freshman,3
+222222203,1,Tom Brand,"112 Third St, Milwaukee, WI",12/16/1966,running back,WWU,2,sophomore,2
+222222204,1,Jenny Vos,"263 Mayberry, Milwaukee, WI",11/11/1967,wide receiver,WWU,6,junior,2
+222222205,2,Chris Carter,"565 Jordan, Milwaukee, WI",3/21/1960,forward,UW,2,senior,4
+333333300,2,Kim Grace,"6677 Mills Ave, Sacramento, CA",10/23/1970,center,UW,6,freshman,2
+333333301,2,Jeff Chase,"145 Bradbury, Sacramento, CA",1/7/1970,quarterback,UW,6,sophomore,3
+444444400,2,Alex Freed,"4333 Pillsbury, Milwaukee, WI",10/9/1950,offensive guard,UW,4,junior,1
+444444401,2,Bonnie Bays,"111 Hollow, Milwaukee, WI",6/19/1956,defense,UW,4,senior,4
+444444402,2,Alec Best,"233 Solid, Milwaukee, WI",6/18/1966,running back,UW,3,freshman,4
+444444403,2,Sam Snedden,"987 Windy St, Milwaukee, WI",7/31/1977,wide receiver,UW,3,sophomore,2
+555555500,3,John James,"7676 Bloomington, Sacramento, CA",6/30/1975,forward,CWU,4,junior,1
+555555501,3,Nandita Ball,"222 Howard, Sacramento, CA",4/16/1969,center,CWU,3,senior,3
+666666600,3,Bob Bender,"8794 Garfield, Chicago, IL",4/17/1968,quarterback,CWU,3,freshman,3
+666666601,3,Jill Jarvis,"6234 Lincoln, Chicago, IL",1/14/1966,offensive guard,CWU,5,sophomore,2
+666666602,3,Kate King,"1976 Boone Trace, Chicago, IL",4/16/1966,defense,CWU,2,junior,1
+666666603,3,Lyle Leslie,"417 Hancock Ave, Chicago, IL",6/9/1963,running back,CWU,4,senior,4
+666666604,3,Billie King,"556 Washington, Chicago, IL",1/1/1960,wide receiver,CWU,3,freshman,2
+666666605,4,Jon Kramer,"1988 Windy Creek, Seattle, WA",8/22/1964,forward,UBC,4,sophomore,2
+666666606,4,Ray King,"213 Delk Road, Seattle, WA",8/16/1949,center,UBC,2,junior,2
+666666607,4,Gerald Small,"122 Ball Street, Dallas, TX",5/15/1962,quarterback,UBC,2,senior,3
+666666608,4,Arnold Head,"233 Spring St, Dallas, TX",5/19/1967,offensive guard,UBC,4,freshman,2
+666666609,4,Helga Pataki,"101 Holyoke St, Dallas, TX",3/11/1969,defense,UBC,4,sophomore,2
+666666610,4,Naveen Drew,"198 Elm St, Philadelphia, PA",5/23/1970,running back,UBC,2,junior,2
+666666611,4,Carl Reedy,"213 Ball St, Philadelphia, PA",6/21/1977,wide receiver,UBC,5,senior,3
+666666612,5,Sammy Hall,"433 Main Street, Miami, FL",1/11/1970,forward,SPU,5,freshman,2
+666666613,5,Red Bacher,"196 Elm Street, Miami, FL",5/21/1980,center,SPU,5,sophomore,1
+666666614,5,James Borg,"450 Stone, Houston, TX",11/10/1927,quarterback,SPU,6,junior,2
+666666615,5,Jeffrey Geoffrey,"451 Stone, Houston, TX",11/11/1927,offensive guard,SPU,4,senior,1
+666666616,5,VIKKI SCHEUERLEIN,"452 Stone, Houston, TX",11/12/1927,defense,SPU,6,freshman,1
+666666617,5,VERLA SCHEXNYDER,"453 Stone, Houston, TX",11/13/1927,running back,SPU,1,sophomore,1
+666666618,5,ROSELYN SCHIEFERDECKER,"454 Stone, Houston, TX",11/14/1927,wide receiver,SPU,5,junior,2
+666666619,6,MELVINA SCHINTZIUS,"455 Stone, Houston, TX",11/15/1927,forward,EWU,1,senior,3
+666666620,6,JANNETTE SCHLENVOGT,"456 Stone, Houston, TX",11/16/1927,center,EWU,1,freshman,4
+666666621,6,GINNY SCHNEIR,"457 Stone, Houston, TX",11/17/1927,quarterback,EWU,3,sophomore,1
+666666622,6,ANISSA SCUTCHFIELD,"458 Stone, Houston, TX",11/18/1927,offensive guard,EWU,6,junior,2
+666666623,6,VIVIANA SEADORF,"459 Stone, Houston, TX",11/19/1927,defense,EWU,1,senior,3
+666666624,6,TWYLA SEARE,"460 Stone, Houston, TX",11/20/1927,running back,EWU,1,freshman,1
+666666625,6,SHARYN SETCHEL,"461 Stone, Houston, TX",11/21/1927,wide receiver,EWU,4,sophomore,1
+666666626,7,CHANTAL SETKA,"462 Stone, Houston, TX",11/22/1927,forward,Gonzaga,2,junior,4
+666666627,7,NIKI SGARLATO,"463 Stone, Houston, TX",11/23/1927,center,Gonzaga,6,senior,4
+666666628,7,MAUD SHAFRON,"464 Stone, Houston, TX",11/24/1927,quarterback,Gonzaga,2,freshman,1
+666666629,7,LIZETTE SHAMLOO,"465 Stone, Houston, TX",11/25/1927,offensive guard,Gonzaga,4,sophomore,4
+666666630,7,LINDY SHCHERBAKOV,"466 Stone, Houston, TX",11/26/1927,defense,Gonzaga,3,junior,1
+666666631,7,PATRICIA PATRICIA,"467 Stone, Houston, TX",11/27/1927,running back,Gonzaga,1,senior,4
+666666632,7,PATRICIA JOHNSON,"468 Stone, Houston, TX",11/28/1927,wide receiver,Gonzaga,6,freshman,3
