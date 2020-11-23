@@ -88,16 +88,22 @@ CREATE TABLE IF NOT EXISTS PLAYERS
 # Create table ALLSTAR_GAME if it does not already exist
 CREATE TABLE IF NOT EXISTS ALLSTAR_GAME
 (
-  Date                  DATE                        NOT NULL,
-  Location              VARCHAR(60)                 NOT NULL,
-  CHAMPIONSHIP_TEAMS_ID INT                         NOT NULL,
-  COACH_SSN             INT                         NOT NULL,
-  ASSISTANT_COACH_SSN   INT,
-  Score                 VARCHAR(10) DEFAULT '0 - 0' NOT NULL,
+  Date                  		DATE                        NOT NULL,
+  Location              		VARCHAR(60)                 NOT NULL,
+  CHAMPIONSHIP_TEAMS_ID_WINNER 	INT                         NOT NULL,
+  CHAMPIONSHIP_TEAMS_ID_LOSER	INT							NOT NULL,
+  COACH_SSN             		INT                         NOT NULL,
+  ASSISTANT_COACH_SSN   		INT,
+  Score                 		VARCHAR(10) DEFAULT '0 - 0' NOT NULL,
   CONSTRAINT PK_GAME_Date_Location
     PRIMARY KEY (Date, Location),
-  CONSTRAINT FK_GAME_TEAM_ID
-    FOREIGN KEY (CHAMPIONSHIP_TEAMS_ID)
+  CONSTRAINT FK_GAME_TEAM_ID_WINNER
+    FOREIGN KEY (CHAMPIONSHIP_TEAMS_ID_WINNER)
+      REFERENCES CHAMPIONSHIP_TEAM (ID)
+      ON DELETE RESTRICT
+      ON UPDATE CASCADE,
+  CONSTRAINT FK_GAME_TEAM_ID_LOSER
+    FOREIGN KEY (CHAMPIONSHIP_TEAMS_ID_LOSER)
       REFERENCES CHAMPIONSHIP_TEAM (ID)
       ON DELETE RESTRICT
       ON UPDATE CASCADE,
@@ -136,19 +142,53 @@ CREATE TABLE IF NOT EXISTS ALLSTAR_NOMINEES
       ON UPDATE RESTRICT
 );
 
+-- Adding Triggers for wins/losses/ties
+
+DELIMITER $$
+
+CREATE TRIGGER Winning_Team
+AFTER INSERT ON ALLSTAR_GAME FOR EACH ROW
+BEGIN
+	UPDATE CHAMPIONSHIP_TEAM
+    SET Win = Win + 1
+	WHERE
+		CHAMPIONSHIP_TEAM.ID = NEW.CHAMPIONSHIP_TEAMS_ID_WINNER;
+END$$
+
+CREATE TRIGGER Losing_Team
+AFTER INSERT ON ALLSTAR_GAME FOR EACH ROW
+BEGIN
+	UPDATE CHAMPIONSHIP_TEAM
+    SET Lost = Lost + 1
+	WHERE
+		CHAMPIONSHIP_TEAM.ID = NEW.CHAMPIONSHIP_TEAMS_ID_LOSER;
+END$$
+
+CREATE TRIGGER Tie_Game
+AFTER INSERT ON ALLSTAR_GAME FOR EACH ROW
+BEGIN
+	UPDATE CHAMPIONSHIP_TEAM
+    SET Tie = Tie + 1
+	WHERE
+		NEW.Score = '0 - 0' AND
+		(ID = NEW.CHAMPIONSHIP_TEAMS_ID_LOSER OR ID = NEW.CHAMPIONSHIP_TEAMS_ID_LOSER);
+END$$
+
+DELIMITER ;
+
 -- -----------------------------------------------------------------------------------------------------------
 -- The following inserts mock data into the previously created schema
 -- -----------------------------------------------------------------------------------------------------------
 
 # Insert Coaches
 INSERT INTO `COACH`
-VALUES (666666666, 'Tudor Saunders', '123 Peachtree, Atlanta, GA', '0000-00-00', 'WWU', 3, 8, 3, 2),
-       (666666667, 'Larry Bowers', '111 Allgood, Atlanta, GA', '0000-00-00', 'UW', 3, 8, 3, 2),
-       (666666668, 'Jeremiah Reyna', '2342 May, Atlanta, GA', '0000-00-00', 'CWU', 1, 6, 2, 1),
-       (666666669, 'Charly Stark', '134 Pelham, Milwaukee, WI', '0000-00-00', 'UBC', 1, 6, 4, 3),
-       (666666670, 'Maliha Marriott', '266 McGrady, Milwaukee, WI', '0000-00-00', 'SPU', 4, 9, 3, 2),
-       (666666671, 'Honey Boone', '112 Third St, Milwaukee, WI', '0000-00-00', 'EWU', 2, 7, 2, 1),
-       (666666672, 'Ronaldo Hayden', '263 Mayberry, Milwaukee, WI', '0000-00-00', 'Gonzaga', 6, 11, 2, 1);
+VALUES (666666666, 'Tudor Saunders', '123 Peachtree, Atlanta, GA', '1990-01-01', 'WWU', 3, 8, 3, 2),
+       (666666667, 'Larry Bowers', '111 Allgood, Atlanta, GA', '1990-01-01', 'UW', 3, 8, 3, 2),
+       (666666668, 'Jeremiah Reyna', '2342 May, Atlanta, GA', '1990-01-01', 'CWU', 1, 6, 2, 1),
+       (666666669, 'Charly Stark', '134 Pelham, Milwaukee, WI', '1990-01-01', 'UBC', 1, 6, 4, 3),
+       (666666670, 'Maliha Marriott', '266 McGrady, Milwaukee, WI', '1990-01-01', 'SPU', 4, 9, 3, 2),
+       (666666671, 'Honey Boone', '112 Third St, Milwaukee, WI', '1990-01-01', 'EWU', 2, 7, 2, 1),
+       (666666672, 'Ronaldo Hayden', '263 Mayberry, Milwaukee, WI', '1990-01-01', 'Gonzaga', 6, 11, 2, 1);
 
 # Insert Assistant Coaches
 INSERT INTO `ASSISTANT_COACH`
@@ -247,13 +287,13 @@ VALUES (111111100, 1, 'Jared James', '123 Peachtree, Atlanta, GA', '1966-10-10',
 
 # Insert Allstar Games
 INSERT INTO `ALLSTAR_GAME`
-VALUES ('2020-11-01', 'Blitzburg', 5, 666666670, 24449374, '8000 - 7'),
-       ('2020-11-02', 'Brawltimore', 4, 666666669, 15309766, '90 - 43'),
-       ('2020-11-03', 'Seattle', 6, 666666671, 765040826, '59 - 30'),
-       ('2020-11-04', 'Toronto', 7, 666666672, 617043149, '800 - 799'),
-       ('2020-11-05', 'Toronto', 5, 666666670, 24449374, '0 - 1'),
-       ('2020-11-06', 'Brawltimore', 3, 666666668, 406210010, '90 - 78'),
-       ('2020-11-07', 'Blitzburg', 2, 666666667, 118072692, '9999 - 800');
+VALUES ('2020-11-01', 'Blitzburg', 5, 1, 666666670, 24449374, '8000 - 7'),
+       ('2020-11-02', 'Brawltimore', 4, 7,  666666669, 15309766, '90 - 43'),
+       ('2020-11-03', 'Seattle', 6, 1, 666666671, 765040826, '59 - 30'),
+       ('2020-11-04', 'Toronto', 7, 2, 666666672, 617043149, '800 - 799'),
+       ('2020-11-05', 'Toronto', 5, 2, 666666670, 24449374, '0 - 1'),
+       ('2020-11-06', 'Brawltimore', 3, 4, 666666668, 406210010, '90 - 78'),
+       ('2020-11-07', 'Blitzburg', 2, 1, 666666667, 118072692, '9999 - 800');
 
 # Insert Allstar Nominees
 INSERT INTO `ALLSTAR_NOMINEES`
