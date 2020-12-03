@@ -12,7 +12,6 @@ public class Query {
     this.conn = conn;
   }
 
-
     public void insertPlayer() throws SQLException {
 
 
@@ -119,14 +118,58 @@ public class Query {
   }
 
   public void insertTeam() throws SQLException {
-    Scanner scanner = new Scanner(System.in);
-    String query = "SELECT fname, lname, salary FROM employee WHERE dno = ? ORDER BY salary DESC;";
-    PreparedStatement p = conn.prepareStatement(query);
-    String dno = scanner.next("Enter a department number: ");
-    p.clearParameters();
-    p.setString(1, dno);
-    ResultSet r = p.executeQuery();
-    scanner.close();
+//    Scanner scanner = new Scanner(System.in);
+//    String query = "SELECT fname, lname, salary FROM employee WHERE dno = ? ORDER BY salary DESC;";
+//    PreparedStatement p = conn.prepareStatement(query);
+//    String dno = scanner.next("Enter a department number: ");
+//    p.clearParameters();
+//    p.setString(1, dno);
+//    ResultSet r = p.executeQuery();
+//    scanner.close();
+
+
+
+      try {
+          String query = "INSERT INTO PLAYERS VALUES (?,?,?,?,?,?,?,?,?)";
+          PreparedStatement p = conn.prepareStatement(query);
+
+          String stringID = readEntry("Please enter the Team's ID: \n");
+          int id = Integer.parseInt(stringID);
+
+          String name = readEntry("Please enter the Team's name: \n");
+
+          String stringCoach = readEntry("Please enter the SSN of an existing coach who is not currently the coach of a team: \n");
+          int coachSSN = Integer.parseInt(stringCoach);
+
+          String stringAssCoach = readEntry("Please enter the SSN of an existing assistant coach who is not currently part of a team: \n");
+          int assCoachSSN = Integer.parseInt(stringAssCoach);
+
+          String univ = readEntry("Please enter the university this team belongs to: \n");
+
+          Statement rankTest = conn.createStatement();
+
+          String stringRank = readEntry("Please enter the rank of the team")
+
+          p.clearParameters();
+          p.setInt(1,id);
+          p.setString(2,name);
+          p.setInt(3,coachSSN);
+          p.setInt(4,assCoachSSN);
+          p.setString(5,univ);
+          p.setInt(6,rank);
+          p.setInt(7,wins);
+          p.setInt(8,losses);
+          p.setInt(9,tie);
+
+          p.executeUpdate();
+
+      } catch (InputMismatchException e) {
+          System.out.println("Invalid input");
+          insertPlayer();
+      } catch(SQLException s){
+          System.out.println(s.getMessage());
+          insertPlayer();
+      }
   }
 
   public void deletePlayer() throws SQLException {
