@@ -3,70 +3,78 @@ import java.io.*;
 
 public class Ui {
 
-  public Ui() {
+  Connection CONNECTION = null;
+
+  public Ui() throws SQLException{
+    CONNECTION = login();
+    mainMenu();
   }
 
-  public void makeConnection() { //TODO: change to user input before turning in, and demo
-    Connection conn = null;
-    try {
-      // Load the JDBC driver
-      Class.forName("com.mysql.cj.jdbc.Driver");
-      // Connect to the database
-      String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
-      String user, pass;
-      user = "javaApp";
-      pass = "GiveUsAnAPlease!100%";
-      conn = DriverManager.getConnection(url, user, pass);
-      // print menu, and get user input
-      mainMenu(conn);
-    } catch (ClassNotFoundException e) {
-      println("Could not load the driver");
-    } catch (SQLException ex) {
-      println(ex);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-    } finally {
-      if (conn != null) {
-        try {
-          conn.close();
-        } catch (SQLException e) {
-          println(e);
-        }
-      }
-    }
+  public Connection getConnection() {
+    return CONNECTION;
   }
 
-  private char getMenuOption() {
-    System.out.flush();
-    String ch = readLine();
-    if (ch.toCharArray().length > 1) {
-      return '0';
-    }
-    switch (ch.charAt(0)) {
-      case '1':
-        return '1';
-      case '2':
-        return '2';
-      case '3':
-        return '3';
-      case '4':
-        return '4';
-      default:
-        return '0';
-    }
+  private Connection login() throws SQLException{ //TODO: change to user input before turning in, and demo
+    String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
+    String user, pass;
+    user = "javaApp";
+    pass = "GiveUsAnAPlease!100%";
+    return DriverManager.getConnection(url, user, pass);
   }
 
-  private void mainMenu(Connection conn) throws SQLException {
+  private void mainMenu() throws SQLException {
+    Connection conn = CONNECTION;
     boolean quit = false;
-
     do {
       printMainMenu();
-      print("Type in your option: ");
-      println("");
-      switch (getMenuOption()) {
-        case '0':
-          println(" Not a valid option ");
+      switch (getOption()) {
+        case '1':
+          browseAndSearchMenu(conn);
           break;
+        case '2':
+          printSearchMenu();
+          break;
+        case '3':
+          println("case 3");
+          break;
+        case 'q':
+          quit = true;
+          println("Closing connection...");
+          conn.close();
+          break;
+        default:
+          println("not a valid input");
+          break;
+      }
+    } while (!quit);
+  }
+
+  private void browseAndSearchMenu(Connection conn) throws SQLException {
+    boolean quit = false;
+    do {
+      printBrowseAndSearchMenu();
+      switch (getOption()) {
+        case '1':
+          browseMenu(conn);
+          break;
+        case '2':
+          searchMenu(conn);
+          break;
+        case 'q':
+          quit = true;
+          break;
+        default:
+          println("not a valid input");
+          break;
+      }
+    } while (!quit);
+  }
+
+  private void searchMenu(Connection conn) throws SQLException {
+    boolean quit = false;
+    do {
+      printSearchMenu();
+      switch (getOption()) {
         case '1':
           println("case 1");
           break;
@@ -76,11 +84,25 @@ public class Ui {
         case '3':
           println("case 3");
           break;
-        case '4':
+        case 'q':
           quit = true;
           println("case 4");
-          conn.close();
           break;
+        default:
+          println("not a valid input");
+          break;
+      }
+    } while (!quit);
+  }
+
+  private void browseMenu(Connection conn) throws SQLException  {
+    boolean quit = false;
+    do {
+      printBrowseMenu();
+      if (getOption() ==  'q') {
+        quit = true;
+      } else {
+        println("not a valid input");
       }
     } while (!quit);
   }
@@ -101,11 +123,22 @@ public class Ui {
     }
   }
 
+  private char getOption() {
+    print("Type in your option: ");
+    System.out.flush();
+    String userInput = readLine();
+    println("");
+    char option = '0';
+    if (userInput.length() == 1) {
+      option = userInput.toLowerCase().charAt(0);
+    }
+    return option;
+  }
+
   private String readLine() {
     InputStreamReader isr = new InputStreamReader(System.in);
     BufferedReader br = new BufferedReader(isr, 1);
     String line = "";
-
     try {
       line = br.readLine();
     } catch (IOException e) {
@@ -123,7 +156,7 @@ public class Ui {
     println("1. Score");
     println("2. Wins per team");
     println("3. Championship participation");
-    println("4. Quit");
+    println("q. Quit");
   }
 
   private void printStatsMenu() {
@@ -133,18 +166,33 @@ public class Ui {
     println("1. Score");
     println("2. Wins per team");
     println("3. Championship participation");
-    println("4. Quit");
+    println("q. Quit");
+  }
+
+  private void printBrowseAndSearchMenu() {
+    println("***********************************************************");
+    println("                Browse & Search the Database               ");
+    println("***********************************************************");
+    println("                   1. Browse Nominees");
+    println("                   2. Search Nominees");
+    println("                         q. Back");
+  }
+
+  private void printBrowseMenu() {
+    println("***********************************************************");
+    println("                       Browse Nominees                     ");
+    println("***********************************************************");
+    println("                          q. Back ");
   }
 
   private void printSearchMenu() {
     println("***********************************************************");
-    println("            Select an All-Star Team Application            ");
-    println("               2. Statistics & Data Mining                 ");
+    println("                           Search                          ");
     println("***********************************************************");
-    println("1. Score");
-    println("2. Wins per team");
-    println("3. Championship participation");
-    println("4. Quit");
+    println("                       1. Team Info");
+    println("                       2. Game Info");
+    println("                       3. Coach Info");
+    println("                          q. Back");
   }
 
   private void print(Object s) {
