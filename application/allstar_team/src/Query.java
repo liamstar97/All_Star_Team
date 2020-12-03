@@ -130,7 +130,7 @@ public class Query {
 
 
       try {
-          String query = "INSERT INTO PLAYERS CHAMPIONSHIP_TEAMS (?,?,?,?,?,?,?,?,?)";
+          String query = "INSERT INTO CHAMPIONSHIP_TEAM VALUES (?,?,?,?,?,?,?,?,?)";
           PreparedStatement p = conn.prepareStatement(query);
 
           String stringID = readEntry("Please enter the Team's ID: \n");
@@ -147,8 +147,22 @@ public class Query {
           String univ = readEntry("Please enter the university this team belongs to: \n");
 
           Statement rankTest = conn.createStatement();
+          int rank = 1;
+          String rankTestQuery = "SELECT Team_name FROM CHAMPIONSHIP_TEAM";
+          ResultSet results = rankTest.executeQuery(rankTestQuery);
 
-          String stringRank = readEntry("Please enter the rank of the team")
+          while (results.next()) {
+              rank++;
+          }
+
+          String stringWins = readEntry("Please enter the team's wins: \n");
+          int wins = Integer.parseInt(stringWins);
+
+          String stringLosses = readEntry("Please enter the team's losses: \n");
+          int losses = Integer.parseInt(stringLosses);
+
+          String stringTies = readEntry("Please enter the team's ties: \n");
+          int ties = Integer.parseInt(stringTies);
 
           p.clearParameters();
           p.setInt(1,id);
@@ -159,7 +173,7 @@ public class Query {
           p.setInt(6,rank);
           p.setInt(7,wins);
           p.setInt(8,losses);
-          p.setInt(9,tie);
+          p.setInt(9,ties);
 
           p.executeUpdate();
 
