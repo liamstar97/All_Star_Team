@@ -2,6 +2,7 @@ import java.sql.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Ui {
 
@@ -80,17 +81,19 @@ public class Ui {
       printSearchMenu();
       switch (getOption()) {
         case '1':
-          println("case 1");
+          query.searchTeamInfo();
+          pauseMenu();
           break;
         case '2':
-          statsMenu(query);
+          query.searchGameInfo();
+          pauseMenu();
           break;
         case '3':
-          updatesMenu(query);
+          query.searchCoachInfo();
+          pauseMenu();
           break;
         case 'q':
           quit = true;
-          println("case 4");
           break;
         default:
           println("not a valid input");
@@ -100,15 +103,14 @@ public class Ui {
   }
 
   private void browseMenu(Query query) throws SQLException  {
-    boolean quit = false;
-    do {
-      printBrowseMenu();
-      if (getOption() ==  'q') {
-        quit = true;
-      } else {
-        println("not a valid input");
-      }
-    } while (!quit);
+    printBrowseMenu();
+    query.listNominees();
+    pauseMenu();
+  }
+
+  private void pauseMenu() { // TODO: fix bug where enter must be pressed twice if console looses focus
+    print("Press 'enter' to go back");
+    readLine();
   }
 
   private void statsMenu(Query query) throws SQLException {
@@ -136,22 +138,6 @@ public class Ui {
           break;
       }
     } while (!quit);
-  }
-
-  private String readEntry(String prompt) {
-    try {
-      StringBuffer buffer = new StringBuffer();
-      print(prompt);
-      System.out.flush();
-      int c = System.in.read();
-      while (c != '\n' && c != -1) {
-        buffer.append((char) c);
-        c = System.in.read();
-      }
-      return buffer.toString().trim();
-    } catch (IOException e) {
-      return "";
-    }
   }
 
   private char getOption() {
@@ -283,8 +269,8 @@ public class Ui {
     println("***********************************************************");
     println("                Browse & Search the Database               ");
     println("***********************************************************");
-    println("                   1. Browse Nominees");
-    println("                   2. Search Nominees");
+    println("                    1. Browse Nominees");
+    println("                    2. Search Nominees");
     println("                         q. Back");
   }
 
@@ -302,7 +288,7 @@ public class Ui {
     println("                       1. Team Info");
     println("                       2. Game Info");
     println("                       3. Coach Info");
-    println("                          q. Back");
+    println("                         q. Back");
   }
 
   private void printUpdatesMenu() {
