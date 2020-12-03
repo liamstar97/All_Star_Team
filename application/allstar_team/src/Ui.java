@@ -17,8 +17,13 @@ public class Ui {
       user = "javaApp";
       pass = "GiveUsAnAPlease!100%";
       conn = DriverManager.getConnection(url, user, pass);
+<<<<<<< HEAD
       // print menu, and get user input
       mainMenu(conn);
+=======
+      //
+      getMainMenuInput(conn);
+>>>>>>> main
     } catch (ClassNotFoundException e) {
       println("Could not load the driver");
     } catch (SQLException ex) {
@@ -36,6 +41,7 @@ public class Ui {
     }
   }
 
+<<<<<<< HEAD
   private char getMenuOption() {
     System.out.flush();
     String ch = readLine();
@@ -58,6 +64,10 @@ public class Ui {
 
   private void mainMenu(Connection conn) throws SQLException {
     boolean quit = false;
+=======
+  private void getMainMenuInput(Connection conn) throws SQLException {
+    boolean done = false;
+>>>>>>> main
     do {
       printMainMenu();
       print("Type in your option: ");
@@ -70,7 +80,7 @@ public class Ui {
           println("case 1");
           break;
         case '2':
-          println("case 2");
+          printSearchMenu();
           break;
         case '3':
           println("case 3");
@@ -138,6 +148,7 @@ public class Ui {
   private void printSearchMenu() {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
+    println("               2. Statistics & Data Mining                 ");
     println("***********************************************************");
     println("1. Score");
     println("2. Wins per team");
