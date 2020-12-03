@@ -56,7 +56,7 @@ public class Ui {
     }
   }
 
-  private void mainMenu(Connection conn) throws SQLException {
+  private void mainMenu2(Connection conn) throws SQLException {
     boolean quit = false;
 
     do {
