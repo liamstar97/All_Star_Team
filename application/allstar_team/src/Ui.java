@@ -41,17 +41,20 @@ public class Ui {
 
     do {
       printMainMenu();
-      print("Type in your option: ");
-      println("");
-      switch (getMenuOption()) {
-        case '0':
+      println("Enter the number of your selection... ");
+      System.out.flush();
+      String input = readLine();
+      char[] inputArray = input.toCharArray();
+      char userInputFinal = inputArray[0];
+      switch (userInputFinal) {
+        default:
           println(" Not a valid option ");
           break;
         case '1':
           println("case 1");
           break;
         case '2':
-          statsMenu();
+          statsMenu(conn);
           break;
         case '3':
           println("case 3");
@@ -72,21 +75,21 @@ public class Ui {
 
     do{
 
-      println("Type in your selection... "
+      println("Enter the number of your selection... ");
       System.out.flush();
-      String userInput = readLine();
-      if (ch.toCharArray().length > 1) {
-        "Not a valid option";
-      }
-      switch (ch)) {
-        case '0':
+      String input = readLine();
+      char[] inputArray = input.toCharArray();
+      char userInputFinal = inputArray[0];
+
+      switch (userInputFinal) {
+        default:
           println(" Not a valid option ");
           break;
         case '1':
           println("case 1");
           break;
         case '2':
-          printSearchMenu();
+          println("case 2");
           break;
         case '3':
           println("case 3");
@@ -94,7 +97,7 @@ public class Ui {
         case '4':
           quit = true;
           println("case 4");
-          conn.close();
+//          conn.close();   Not closing connection until user quits program in main menu
           break;
       }
   } while (!quit);
@@ -134,9 +137,9 @@ public class Ui {
 
   private void printMainMenu() {
     println("***********************************************************");
-    println("                       ***********                         ")
+    println("                       ***********                         ");
     println("            Welcome to Selecting an All-Star Team          ");
-    println("                       ***********                         ")
+    println("                       ***********                         ");
     println("***********************************************************");
     println("             1. Search & Browse the Database");
     println("               2. Statistics & Data Mining");
