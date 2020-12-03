@@ -89,10 +89,11 @@ public class Ui {
           break;
         case '1':
           println("case 1");
-          statsQueries.playerRank(conn);
+          statsQueries.playerRank();
           break;
         case '2':
           println("case 2");
+          statsQueries.getTeamWins();
           break;
         case '3':
           println("case 3");

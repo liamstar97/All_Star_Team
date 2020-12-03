@@ -8,7 +8,7 @@ public class Query {
     this.conn = conn;
   }
 
-  public void playerRank(Connection conn) throws SQLException {
+  public void playerRank() throws SQLException {
       Statement getPlayerRank = conn.createStatement();
 
       String query = "SELECT Name, PLAYER_Rank FROM PLAYERS JOIN ALLSTAR_NOMINEES PLAYERS_SSN ON SSN = PLAYERS_SSN";
@@ -21,6 +21,20 @@ public class Query {
 
           System.out.println(name + " " + rank);
       }
+  }
 
+  public void getTeamWins() throws SQLException {
+      Statement getTeamWins = conn.createStatement();
+
+      String query = "SELECT Team_name, Win FROM CHAMPIONSHIP_TEAM";
+
+      ResultSet result = getTeamWins.executeQuery(query);
+
+      while(result.next()){
+          String teamName = result.getString(1);
+          int wins = result.getInt(2);
+
+          System.out.println(teamName + " " + wins);
+      }
   }
 }
