@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.Scanner;
+
 
 public class Query {
 
@@ -51,4 +53,16 @@ public class Query {
       }
       System.out.println(count);
   }
+
+    private boolean validateInt(String input){
+        Scanner userInput = new Scanner(input);
+
+        for(int i = 0; i < input.length(); i++){
+            if(!userInput.hasNextInt())
+                return false;
+        }
+        return true;
+    }
+
 }
+
