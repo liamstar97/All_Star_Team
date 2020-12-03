@@ -6,7 +6,7 @@ public class Ui {
   public Ui() {
   }
 
-  public void makeConnection() {
+  public void makeConnection() { //TODO: change to user input before turning in, and demo
     Connection conn = null;
     try {
       // Load the JDBC driver
@@ -17,8 +17,13 @@ public class Ui {
       user = "javaApp";
       pass = "GiveUsAnAPlease!100%";
       conn = DriverManager.getConnection(url, user, pass);
+<<<<<<< HEAD
+      // print menu, and get user input
+      mainMenu(conn);
+=======
       //
       getMainMenuInput(conn);
+>>>>>>> main
     } catch (ClassNotFoundException e) {
       println("Could not load the driver");
     } catch (SQLException ex) {
@@ -36,15 +41,41 @@ public class Ui {
     }
   }
 
+<<<<<<< HEAD
+  private char getMenuOption() {
+    System.out.flush();
+    String ch = readLine();
+    if (ch.toCharArray().length > 1) {
+      return '0';
+    }
+    switch (ch.charAt(0)) {
+      case '1':
+        return '1';
+      case '2':
+        return '2';
+      case '3':
+        return '3';
+      case '4':
+        return '4';
+      default:
+        return '0';
+    }
+  }
+
+  private void mainMenu(Connection conn) throws SQLException {
+    boolean quit = false;
+=======
   private void getMainMenuInput(Connection conn) throws SQLException {
     boolean done = false;
+>>>>>>> main
     do {
       printMainMenu();
       print("Type in your option: ");
-      System.out.flush();
-      String ch = readLine();
       println("");
-      switch (ch.charAt(0)) {
+      switch (getMenuOption()) {
+        case '0':
+          println(" Not a valid option ");
+          break;
         case '1':
           println("case 1");
           break;
@@ -55,14 +86,12 @@ public class Ui {
           println("case 3");
           break;
         case '4':
-          done = true;
+          quit = true;
           println("case 4");
           conn.close();
           break;
-        default:
-          println(" Not a valid option ");
       }
-    } while (!done);
+    } while (!quit);
   }
 
   private String readEntry(String prompt) {
@@ -105,6 +134,7 @@ public class Ui {
     println("3. Championship participation");
     println("4. Quit");
   }
+
   private void printStatsMenu() {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
@@ -114,6 +144,7 @@ public class Ui {
     println("3. Championship participation");
     println("4. Quit");
   }
+
   private void printSearchMenu() {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
