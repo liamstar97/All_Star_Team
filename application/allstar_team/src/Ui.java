@@ -1,12 +1,11 @@
 import java.sql.*;
-import java.io.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Ui {
 
-  Connection CONNECTION = null;
+  private final Connection CONNECTION;
 
   public Ui() throws SQLException {
     Connection conn = login();
@@ -20,10 +19,11 @@ public class Ui {
   }
 
   private Connection login() throws SQLException { //TODO: change to user input before turning in, and demo
-    String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
-    String user, pass;
+    String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/" +
+        "Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
+    String user, pass; //TODO: Create demo user and sara user
     user = "javaApp"; //TODO: remove hardcoded credentials, and remove user from db
-    pass = "GiveUsAnAPlease!100%"; //TODO: Create demo user and sara user
+    pass = "GiveUsAnAPlease!100%";
     return DriverManager.getConnection(url, user, pass);
   }
 
@@ -33,13 +33,13 @@ public class Ui {
       printMainMenu();
       switch (getOption()) {
         case '1':
-          browseAndSearchMenu(conn, query);
+          browseAndSearchMenu(query);
           break;
         case '2':
-          statsMenu(conn, query);
+          statsMenu(query);
           break;
         case '3':
-          updatesMenu(conn, query);
+          updatesMenu(query);
           break;
         case 'q':
           quit = true;
@@ -53,16 +53,16 @@ public class Ui {
     } while (!quit);
   }
 
-  private void browseAndSearchMenu(Connection conn, Query query) throws SQLException {
+  private void browseAndSearchMenu(Query query) throws SQLException {
     boolean quit = false;
     do {
       printBrowseAndSearchMenu();
       switch (getOption()) {
         case '1':
-          browseMenu(conn, query);
+          browseMenu(query);
           break;
         case '2':
-          searchMenu(conn, query);
+          searchMenu(query);
           break;
         case 'q':
           quit = true;
@@ -74,7 +74,7 @@ public class Ui {
     } while (!quit);
   }
 
-  private void searchMenu(Connection conn, Query query) throws SQLException {
+  private void searchMenu(Query query) throws SQLException {
     boolean quit = false;
     do {
       printSearchMenu();
@@ -83,10 +83,10 @@ public class Ui {
           println("case 1");
           break;
         case '2':
-          statsMenu(conn, query);
+          statsMenu(query);
           break;
         case '3':
-          updatesMenu(conn, query);
+          updatesMenu(query);
           break;
         case 'q':
           quit = true;
@@ -99,7 +99,7 @@ public class Ui {
     } while (!quit);
   }
 
-  private void browseMenu(Connection conn, Query query) throws SQLException  {
+  private void browseMenu(Query query) throws SQLException  {
     boolean quit = false;
     do {
       printBrowseMenu();
@@ -111,7 +111,7 @@ public class Ui {
     } while (!quit);
   }
 
-  private void statsMenu(Connection conn, Query query) throws SQLException {
+  private void statsMenu(Query query) throws SQLException {
     boolean quit = false;
     printStatsMenu();
     do{
@@ -131,14 +131,11 @@ public class Ui {
           println("case 3");
           query.getParticipation();
           break;
-        case '4':
+        case 'q':
           quit = true;
-          println("case 4");
-  //          conn.close();   Not closing connection until user quits program in main menu
           break;
       }
-  } while (!quit);
-
+    } while (!quit);
   }
 
   private String readEntry(String prompt) {
@@ -183,16 +180,16 @@ public class Ui {
     return line;
   }
 
-  private void updatesMenu(Connection conn, Query query) {
+  private void updatesMenu(Query query) {
     boolean quit = false;
     do {
       printUpdatesMenu();
       switch (getOption()) {
         case '1':
-          insertMenu(conn, query);
+          insertMenu(query);
           break;
         case '2':
-          deleteMenu(conn, query);
+          deleteMenu(query);
           break;
         case 'q':
           quit = true;
@@ -204,76 +201,60 @@ public class Ui {
     } while (!quit);
   }
 
-  private void insertMenu(Connection conn, Query query) {
+  private void insertMenu(Query query) {
     boolean quit = false;
     do {
-      printInsertMenu();
-      switch (getOption()) {
-        case '1':
-          try {
-            query.insertPlayer();
-          } catch (SQLException e) {
-            System.out.println("Failed.");
-          }
-          break;
-        case '2':
-          try {
-            query.insertCoach();
-          } catch (SQLException e) {
-            System.out.println("Failed.");
-          }
-          break;
-        case '3':
-          try {
-            query.insertTeam();
-          } catch (SQLException e) {
-            System.out.println("Failed.");
-          }
-          break;
-        case 'q':
-          quit = true;
-          break;
-        default:
-          println("Not an option.");
-          break;
+      try {
+        printInsertMenu();
+        switch (getOption()) {
+          case '1':
+              query.insertPlayer();
+            break;
+          case '2':
+              query.insertCoach();
+            break;
+          case '3':
+              query.insertTeam();
+            break;
+          case 'q':
+            quit = true;
+            break;
+          default:
+            println("Not an option.");
+            break;
+        }
+      } catch (SQLException e) {
+        System.out.println("Failed.");
       }
     } while (!quit);
   }
 
-  private void deleteMenu(Connection conn, Query query) {
+  private void deleteMenu(Query query) {
     boolean quit = false;
     do {
-      printDeleteMenu();
-      switch (getOption()) {
-        case '1':
-          try {
-            query.deletePlayer();
-          } catch (SQLException e) {
-            System.out.println("Failed.");
-          }
-          break;
-        case '2':
-          try {
-            query.deleteCoach();
-          } catch (SQLException e) {
-            System.out.println("Failed.");
-          }
-          break;
-        case '3':
-          try {
-            query.deleteTeam();
-          } catch (SQLException e) {
-            System.out.println("Failed.");
-          }
-          break;
-        case 'q':
-          quit = true;
-          break;
-        default:
-          println("Not an option.");
-          break;
+      try {
+        printDeleteMenu();
+        switch (getOption()) {
+          case '1':
+              query.deletePlayer();
+            break;
+          case '2':
+              query.deleteCoach();
+            break;
+          case '3':
+              query.deleteTeam();
+            break;
+          case 'q':
+            quit = true;
+            break;
+          default:
+            println("Not an option.");
+            break;
+        }
+      } catch (SQLException e) {
+        println("Failed.");
       }
-    } while (!quit);
+    } while (!quit) ;
   }
 
   private void printMainMenu() {
