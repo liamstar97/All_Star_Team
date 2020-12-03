@@ -24,7 +24,7 @@ public class Query {
     System.out.println("Enter the player's Name: ");
     String name = scanner.nextLine();
     System.out.println("Enter the player's Address: ");
-    String address = scanner.nextLine();
+    String address = scanner.nextLine(); //("Enter the player's address: ");
     String bDate = scanner.next("Enter the player's birth date as YYYY-MM-DD: ");
     Date birthDate = Date.valueOf(bDate);
     System.out.println("Enter the player's Position: ");
@@ -157,14 +157,22 @@ public class Query {
       System.out.println(count);
   }
 
-    private boolean validateInt(String input){
-        Scanner userInput = new Scanner(input);
+  private boolean validateInt(String input){
+      Scanner userInput = new Scanner(input);
 
-        for(int i = 0; i < input.length(); i++){
-            if(!userInput.hasNextInt())
-                return false;
-        }
-        return true;
-    }
+      for(int i = 0; i < input.length(); i++){
+          if(!userInput.hasNextInt())
+              return false;
+      }
+      return true;
+  }
+  private void print(Object s) {
+    System.out.print(s);
+  }
+  
+  private void println(Object s) {
+    System.out.println(s);
+  }
 }
+
 
