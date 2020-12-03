@@ -97,6 +97,7 @@ public class Ui {
           break;
         case '3':
           println("case 3");
+          statsQueries.getParticipation();
           break;
         case '4':
           quit = true;

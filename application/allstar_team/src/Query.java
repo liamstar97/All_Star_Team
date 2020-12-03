@@ -37,4 +37,18 @@ public class Query {
           System.out.println(teamName + " " + wins);
       }
   }
+
+  public void getParticipation() throws SQLException {
+
+      int count = 0;
+      Statement getParticipation = conn.createStatement();
+      String query = "SELECT Team_name FROM CHAMPIONSHIP_TEAM";
+      ResultSet results = getParticipation.executeQuery(query);
+
+
+      while (results.next()) {
+          count++;
+      }
+      System.out.println(count);
+  }
 }
