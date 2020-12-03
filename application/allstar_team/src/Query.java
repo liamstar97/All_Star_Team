@@ -14,66 +14,66 @@ public class Query {
   }
 
 
-    public void insertPlayer() throws SQLException {
-        Scanner scanner = new Scanner(System.in);
-        String query = "INSERT INTO PLAYERS VALUES (?,?,'?','?',?,'?','?',?,'?',?);";
-        PreparedStatement p = conn.prepareStatement(query);
-        try {
-            System.out.println("Enter the player's SSN: ");
-            int SSN = scanner.nextInt();
+  public void insertPlayer() throws SQLException {
+      Scanner scanner = new Scanner(System.in);
+      String query = "INSERT INTO PLAYERS VALUES (?,?,'?','?',?,'?','?',?,'?',?);";
+      PreparedStatement p = conn.prepareStatement(query);
+      try {
+          System.out.println("Enter the player's SSN: ");
+          int SSN = scanner.nextInt();
 
-            System.out.println("Enter the player's Team ID: ");
-            int teamID = scanner.nextInt();
+          System.out.println("Enter the player's Team ID: ");
+          int teamID = scanner.nextInt();
 
-            System.out.println("Enter the number of times this player has been on an Allstar Team: ");
-            int timeAllstar = scanner.nextInt();
+          System.out.println("Enter the number of times this player has been on an Allstar Team: ");
+          int timeAllstar = scanner.nextInt();
 
-            System.out.println("Enter the player's number of years on their team: ");
-            int yearsTeam = scanner.nextInt();
+          System.out.println("Enter the player's number of years on their team: ");
+          int yearsTeam = scanner.nextInt();
 
-            System.out.println("Enter the player's Name: ");
-            String name = scanner.nextLine();
+          System.out.println("Enter the player's Name: ");
+          String name = scanner.nextLine();
 
-            System.out.println("Enter the player's Address: ");
-            String address = scanner.nextLine();
+          System.out.println("Enter the player's Address: ");
+          String address = scanner.nextLine();
 
-            String bDate = scanner.next("Enter the player's birth date as YYYY-MM-DD: ");
-            Date birthDate = Date.valueOf(bDate);
+          String bDate = scanner.next("Enter the player's birth date as YYYY-MM-DD: ");
+          Date birthDate = Date.valueOf(bDate);
 
-            System.out.println("Enter the player's Position: ");
-            String position = scanner.nextLine();
+          System.out.println("Enter the player's Position: ");
+          String position = scanner.nextLine();
 
-            System.out.println("Enter the player's University: ");
-            String univ = scanner.nextLine();
+          System.out.println("Enter the player's University: ");
+          String univ = scanner.nextLine();
 
-            System.out.println("Enter the player's Class: ");
-            String collegeClass = scanner.nextLine();
+          System.out.println("Enter the player's Class: ");
+          String collegeClass = scanner.nextLine();
 
-            p.clearParameters();
-            p.setInt(1, SSN);
-            p.setInt(2, teamID);
-            p.setString(3, name);
-            p.setString(4, address);
-            p.setDate(5, birthDate);
-            p.setString(6, position);
-            p.setString(7, univ);
-            p.setInt(8, yearsTeam);
-            p.setString(9, collegeClass);
-            p.setInt(10, timeAllstar);
+          p.clearParameters();
+          p.setInt(1, SSN);
+          p.setInt(2, teamID);
+          p.setString(3, name);
+          p.setString(4, address);
+          p.setDate(5, birthDate);
+          p.setString(6, position);
+          p.setString(7, univ);
+          p.setInt(8, yearsTeam);
+          p.setString(9, collegeClass);
+          p.setInt(10, timeAllstar);
 
-        }catch (InputMismatchException e){
-            System.out.println("Invalid input");
-            insertPlayer();
-        }
-        //ResultSet r = p.executeQuery();
-        scanner.close();
-        // while (r.next()) {
-        //     String fname = r.getString(1);
-        //     String lname = r.getString(2);
-        //     double salary = r.getDouble(3);
-        //     System.out.println(String.format("%-20s %s", fname + " " + lname, "Salary: " + salary));
-        // }
-    }
+      }catch (InputMismatchException e){
+          System.out.println("Invalid input");
+          insertPlayer();
+      }
+      //ResultSet r = p.executeQuery();
+      scanner.close();
+      // while (r.next()) {
+      //     String fname = r.getString(1);
+      //     String lname = r.getString(2);
+      //     double salary = r.getDouble(3);
+      //     System.out.println(String.format("%-20s %s", fname + " " + lname, "Salary: " + salary));
+      // }
+  }
 
  public void insertCoach() throws SQLException {
   Scanner scanner = new Scanner(System.in);
@@ -174,14 +174,22 @@ public class Query {
       System.out.println(count);
   }
 
-    private boolean validateInt(String input){
-        Scanner userInput = new Scanner(input);
+  private boolean validateInt(String input){
+      Scanner userInput = new Scanner(input);
 
-        for(int i = 0; i < input.length(); i++){
-            if(!userInput.hasNextInt())
-                return false;
-        }
-        return true;
-    }
+      for(int i = 0; i < input.length(); i++){
+          if(!userInput.hasNextInt())
+              return false;
+      }
+      return true;
+  }
+  private void print(Object s) {
+    System.out.print(s);
+  }
+  
+  private void println(Object s) {
+    System.out.println(s);
+  }
 }
+
 
