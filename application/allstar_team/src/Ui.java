@@ -96,7 +96,25 @@ public class Ui {
     return line;
   }
 
-  private void printMenu() {
+  private void printMainMenu() {
+    println("***********************************************************");
+    println("            Select an All-Star Team Application            ");
+    println("***********************************************************");
+    println("1. Score");
+    println("2. Wins per team");
+    println("3. Championship participation");
+    println("4. Quit");
+  }
+  private void printStatsMenu() {
+    println("***********************************************************");
+    println("            Select an All-Star Team Application            ");
+    println("***********************************************************");
+    println("1. Score");
+    println("2. Wins per team");
+    println("3. Championship participation");
+    println("4. Quit");
+  }
+  private void printSearchMenu() {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
     println("***********************************************************");
