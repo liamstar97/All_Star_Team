@@ -17,13 +17,8 @@ public class Ui {
       user = "javaApp";
       pass = "GiveUsAnAPlease!100%";
       conn = DriverManager.getConnection(url, user, pass);
-<<<<<<< HEAD
       // print menu, and get user input
       mainMenu(conn);
-=======
-      //
-      getMainMenuInput(conn);
->>>>>>> main
     } catch (ClassNotFoundException e) {
       println("Could not load the driver");
     } catch (SQLException ex) {
@@ -41,7 +36,6 @@ public class Ui {
     }
   }
 
-<<<<<<< HEAD
   private char getMenuOption() {
     System.out.flush();
     String ch = readLine();
@@ -64,10 +58,7 @@ public class Ui {
 
   private void mainMenu(Connection conn) throws SQLException {
     boolean quit = false;
-=======
-  private void getMainMenuInput(Connection conn) throws SQLException {
-    boolean done = false;
->>>>>>> main
+
     do {
       printMainMenu();
       print("Type in your option: ");
