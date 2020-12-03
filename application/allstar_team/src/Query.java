@@ -130,7 +130,7 @@ public class Query {
 
 
       try {
-          String query = "INSERT INTO PLAYERS VALUES (?,?,?,?,?,?,?,?,?)";
+          String query = "INSERT INTO PLAYERS CHAMPIONSHIP_TEAMS (?,?,?,?,?,?,?,?,?)";
           PreparedStatement p = conn.prepareStatement(query);
 
           String stringID = readEntry("Please enter the Team's ID: \n");
@@ -173,36 +173,33 @@ public class Query {
   }
 
   public void deletePlayer() throws SQLException {
-    Scanner scanner = new Scanner(System.in);
-    String query = "SELECT fname, lname, salary FROM employee WHERE dno = ? ORDER BY salary DESC;";
+    String query = "DELETE FROM PLAYERS WHERE SSN = ?";
     PreparedStatement p = conn.prepareStatement(query);
-    String dno = scanner.next("Enter a department number: ");
+    String SSNString = readEntry("Enter Player SSN to Delete: ");
+    int SSN = Integer.parseInt(SSNString);
     p.clearParameters();
-    p.setString(1, dno);
-    ResultSet r = p.executeQuery();
-    scanner.close();
+    p.setInt(1, SSN);
+    p.executeUpdate();
   }
 
   public void deleteCoach() throws SQLException {
-    Scanner scanner = new Scanner(System.in);
-    String query = "SELECT fname, lname, salary FROM employee WHERE dno = ? ORDER BY salary DESC;";
+    String query = "DELETE FROM COACH WHERE SSN = ?";
     PreparedStatement p = conn.prepareStatement(query);
-    String dno = scanner.next("Enter a department number: ");
+    String SSNString = readEntry("Enter Coach SSN to Delete: ");
+    int SSN = Integer.parseInt(SSNString);
     p.clearParameters();
-    p.setString(1, dno);
-    ResultSet r = p.executeQuery();
-    scanner.close();
+    p.setInt(1, SSN);
+    p.executeUpdate();
   }
 
   public void deleteTeam() throws SQLException {
-    Scanner scanner = new Scanner(System.in);
-    String query = "SELECT fname, lname, salary FROM employee WHERE dno = ? ORDER BY salary DESC;";
+    String query = "DELETE FROM CHAMPIONSHIP_TEAM WHERE ID = ?";
     PreparedStatement p = conn.prepareStatement(query);
-    String dno = scanner.next("Enter a department number: ");
+    String IDString = readEntry("Enter Team ID to Delete: ");
+    int ID = Integer.parseInt(IDString);
     p.clearParameters();
-    p.setString(1, dno);
-    ResultSet r = p.executeQuery();
-    scanner.close();
+    p.setInt(1, ID);
+    p.executeUpdate();
   }
 
   public void playerRank() throws SQLException {
