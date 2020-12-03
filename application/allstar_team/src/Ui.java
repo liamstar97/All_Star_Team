@@ -8,7 +8,7 @@ public class Ui {
 
   Connection CONNECTION = null;
 
-  public Ui() throws SQLException{
+  public Ui() throws SQLException {
     CONNECTION = login();
     mainMenu();
   }
@@ -17,11 +17,11 @@ public class Ui {
     return CONNECTION;
   }
 
-  private Connection login() throws SQLException{ //TODO: change to user input before turning in, and demo
+  private Connection login() throws SQLException { //TODO: change to user input before turning in, and demo
     String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
     String user, pass;
-    user = "javaApp";
-    pass = "GiveUsAnAPlease!100%";
+    user = "javaApp"; //TODO: remove hardcoded credentials, and remove user from db
+    pass = "GiveUsAnAPlease!100%"; //TODO: Create demo user and sara user
     return DriverManager.getConnection(url, user, pass);
   }
 
