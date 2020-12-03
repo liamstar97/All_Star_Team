@@ -1,5 +1,5 @@
 *.tmp
 *.mwb.bak
 *.iml
-application/allstar_team/.idea/
-application/allstar_team/out/
+application/allstar_team/.idea
+application/allstar_team/out
