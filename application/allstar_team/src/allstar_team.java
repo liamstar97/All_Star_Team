@@ -2,10 +2,10 @@ import java.sql.*;
 import java.io.*;
 
 public class allstar_team {
-    public static void main(String args[]) {
-        Ui allstarTeam = new Ui();
-        allstarTeam.makeConnection();
-    }
+  public static void main(String args[]) {
+    Ui allstarTeam = new Ui();
+    allstarTeam.makeConnection();
+  }
 }
 //
 //    private static void findHighestPaid(Connection conn) throws SQLException, IOException {

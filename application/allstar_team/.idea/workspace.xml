@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db7725f7-b2e3-4c57-801d-1a893fbdb393" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Query.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/allstar_team.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/allstar_team.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ui.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,27 +30,28 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
   <component name="RunManager">
     <configuration name="allstar_team" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="allstar_team" />
       <module name="allstar_team" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -87,5 +85,36 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="565" y="21" key="CommitChangelistDialog2" timestamp="1606952625579">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="565" y="21" key="CommitChangelistDialog2/0.0.1920.1080/1920.-129.900.1600@0.0.1920.1080" timestamp="1606952625579" />
+    <state width="1875" height="152" key="GridCell.Tab.0.bottom" timestamp="1606953361662">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1875" height="152" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.-129.900.1600@0.0.1920.1080" timestamp="1606953361662" />
+    <state width="1875" height="152" key="GridCell.Tab.0.center" timestamp="1606953361662">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1875" height="152" key="GridCell.Tab.0.center/0.0.1920.1080/1920.-129.900.1600@0.0.1920.1080" timestamp="1606953361662" />
+    <state width="1875" height="152" key="GridCell.Tab.0.left" timestamp="1606953361662">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1875" height="152" key="GridCell.Tab.0.left/0.0.1920.1080/1920.-129.900.1600@0.0.1920.1080" timestamp="1606953361662" />
+    <state width="1875" height="152" key="GridCell.Tab.0.right" timestamp="1606953361662">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1875" height="152" key="GridCell.Tab.0.right/0.0.1920.1080/1920.-129.900.1600@0.0.1920.1080" timestamp="1606953361662" />
+    <state x="461" y="185" key="SettingsEditor" timestamp="1606953498919">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="461" y="185" key="SettingsEditor/0.0.1920.1080/1920.-129.900.1600@0.0.1920.1080" timestamp="1606953498919" />
+    <state x="660" y="212" width="583" height="849" key="find.popup" timestamp="1606953055229">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="660" y="212" width="583" height="849" key="find.popup/0.0.1920.1080/1920.-129.900.1600@0.0.1920.1080" timestamp="1606953055229" />
   </component>
 </project>
