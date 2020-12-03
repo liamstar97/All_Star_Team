@@ -81,12 +81,15 @@ public class Ui {
       char[] inputArray = input.toCharArray();
       char userInputFinal = inputArray[0];
 
+      Query statsQueries = new Query(conn);
+
       switch (userInputFinal) {
         default:
           println(" Not a valid option ");
           break;
         case '1':
           println("case 1");
+          statsQueries.playerRank(conn);
           break;
         case '2':
           println("case 2");
