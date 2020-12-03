@@ -13,66 +13,67 @@ public class Query {
   }
 
   public void insertPlayer() throws SQLException {
-    Scanner scanner = new Scanner(System.in);
-    String query = "INSERT INTO PLAYERS VALUES (? , ? , ? , ? , ? , ? , ? , ? , ? , ?);";
-    PreparedStatement p = conn.prepareStatement(query);
-    try {
-      String SSNString = readEntry("Enter the player's SSN: \n");
-      int SSN = Integer.parseInt(SSNString);
+      Scanner scanner = new Scanner(System.in);
 
-      String teamIDStr = readEntry("Enter the player's Team ID: \n");
-      int teamID = Integer.parseInt(teamIDStr);
+      try {
+          String query = "INSERT INTO PLAYERS VALUES (?,?,?,?,?,?,?,?,?,?)";
+          PreparedStatement p = conn.prepareStatement(query);
 
-      String allstar = readEntry("Enter the number of times this player has been on an Allstar Team: \n");
-      int timeAllstar = Integer.parseInt(allstar);
+          String SSNString = readEntry("Enter the player's SSN: \n");
+          int SSN = Integer.parseInt(SSNString);
 
-      String years = readEntry("Enter the player's number of years on their team: \n");
-      int yearsTeam = Integer.parseInt(years);
+          String teamIDStr = readEntry("Enter the player's Team ID: \n");
+          int teamID = Integer.parseInt(teamIDStr);
 
-      String name = readEntry("Enter the player's Name: \n");
+          String allstar = readEntry("Enter the number of times this player has been on an Allstar Team: \n");
+          int timeAllstar = Integer.parseInt(allstar);
 
-      String address = readEntry("Enter the player's Address: \n");
-      
-      String bDate = readEntry("Enter the player's birth date as YYYY-MM-DD: \n");
-      Date birthDate = Date.valueOf(bDate);
+          String years = readEntry("Enter the player's number of years on their team: \n");
+          int yearsTeam = Integer.parseInt(years);
 
-      String position = readEntry("Enter the player's Position: \n");
+          String name = readEntry("Enter the player's Name: \n");
 
-      String univ = readEntry("Enter the player's University: \n");
+          String address = readEntry("Enter the player's Address: \n");
 
-      String collegeClass = readEntry("Enter the player's Class: \n");
+          String bDate = readEntry("Enter the player's birth date as YYYY-MM-DD: \n");
+          Date birthDate = Date.valueOf(bDate);
 
-      p.clearParameters();
-      p.setInt(1, SSN);
-      p.setInt(2, teamID);
-      p.setString(3, name);
-      p.setString(4, address);
-      p.setDate(5, birthDate);
-      p.setString(6, position);
-      p.setString(7, univ);
-      p.setInt(8, yearsTeam);
-      p.setString(9, collegeClass);
-      p.setInt(10, timeAllstar);
+          String position = readEntry("Enter the player's Position: \n");
 
-    } catch (InputMismatchException e) {
-      System.out.println("Invalid input");
-      insertPlayer();
-    } catch(NumberFormatException n){
-        System.out.println("Invalid input");
-        insertPlayer();
-    } catch(SQLException s){
-        System.out.println("SQL Exception error, please doublecheck the data and try again");
-        insertPlayer();
-    }
-    // ResultSet r = p.executeQuery();
-    scanner.close();
-    // while (r.next()) {
-    // String fname = r.getString(1);
-    // String lname = r.getString(2);
-    // double salary = r.getDouble(3);
-    // System.out.println(String.format("%-20s %s", fname + " " + lname, "Salary: "
-    // + salary));
-    // }
+          String univ = readEntry("Enter the player's University: \n");
+
+          String collegeClass = readEntry("Enter the player's Class: \n");
+
+          p.clearParameters();
+          p.setInt(1, SSN);
+          p.setInt(2, teamID);
+          p.setString(3, name);
+          p.setString(4, address);
+          p.setDate(5, birthDate);
+          p.setString(6, position);
+          p.setString(7, univ);
+          p.setInt(8, yearsTeam);
+          p.setString(9, collegeClass);
+          p.setInt(10, timeAllstar);
+
+          p.executeUpdate();
+
+      } catch (InputMismatchException e) {
+          System.out.println("Invalid input");
+          insertPlayer();
+      } catch(SQLException s){
+          System.out.println(s.getMessage());
+          insertPlayer();
+      }
+
+      scanner.close();
+      // while (r.next()) {
+      // String fname = r.getString(1);
+      // String lname = r.getString(2);
+      // double salary = r.getDouble(3);
+      // System.out.println(String.format("%-20s %s", fname + " " + lname, "Salary: "
+      // + salary));
+      // }
   }
 
   public void insertCoach() throws SQLException {
