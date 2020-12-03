@@ -18,7 +18,7 @@ public class Ui {
       pass = "GiveUsAnAPlease!100%";
       conn = DriverManager.getConnection(url, user, pass);
       //
-      getMenuInput(conn);
+      getMainMenuInput(conn);
     } catch (ClassNotFoundException e) {
       println("Could not load the driver");
     } catch (SQLException ex) {
@@ -36,10 +36,10 @@ public class Ui {
     }
   }
 
-  private void getMenuInput(Connection conn) throws SQLException {
+  private void getMainMenuInput(Connection conn) throws SQLException {
     boolean done = false;
     do {
-      printMenu();
+      printMainMenu();
       print("Type in your option: ");
       System.out.flush();
       String ch = readLine();
@@ -49,7 +49,7 @@ public class Ui {
           println("case 1");
           break;
         case '2':
-          println("case 2");
+          printSearchMenu();
           break;
         case '3':
           println("case 3");
@@ -117,6 +117,7 @@ public class Ui {
   private void printSearchMenu() {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
+    println("               2. Statistics & Data Mining                 ");
     println("***********************************************************");
     println("1. Score");
     println("2. Wins per team");
