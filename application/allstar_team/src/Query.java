@@ -57,6 +57,9 @@ public class Query {
     } catch (InputMismatchException e) {
       System.out.println("Invalid input");
       insertPlayer();
+    } catch(NumberFormatException n){
+        System.out.println("Invalid input");
+        insertPlayer();
     }
     // ResultSet r = p.executeQuery();
     scanner.close();
