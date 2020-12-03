@@ -56,14 +56,11 @@ public class Query {
             p.setInt(10, timeAllstar);
 
         } catch (InputMismatchException e) {
-        System.out.println("Invalid input");
-        insertPlayer();
-        } catch(NumberFormatException n){
-        System.out.println("Invalid input");
-        insertPlayer();
+            System.out.println("Invalid input");
+            insertPlayer();
         } catch(SQLException s){
-        System.out.println(s.getErrorCode());
-        insertPlayer();
+            System.out.println(s.getErrorCode());
+            insertPlayer();
         }
         // ResultSet r = p.executeQuery();
         scanner.close();
