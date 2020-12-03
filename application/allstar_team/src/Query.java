@@ -140,6 +140,8 @@ public class Query {
           if(!stringAssCoach.equals("q")) {
               int assCoachSSN = Integer.parseInt(stringAssCoach);
               p.setInt(4,assCoachSSN);
+          }else{
+              p.setNull(4, Types.INTEGER);
           }
 
           String univ = readEntry("Please enter the university this team belongs to: \n");
