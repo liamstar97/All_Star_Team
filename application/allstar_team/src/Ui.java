@@ -17,7 +17,6 @@ public class Ui {
     return CONNECTION;
   }
 
-
   private Connection login() throws SQLException{ //TODO: change to user input before turning in, and demo
     String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
     String user, pass;
@@ -309,7 +308,7 @@ public class Ui {
     println("             1. Search & Browse the Database");
     println("               2. Statistics & Data Mining");
     println("                        3. Updates");
-    println("                         4. Quit");
+    println("                         q. Quit");
   }
 
   private void printStatsMenu() {
@@ -355,7 +354,7 @@ public class Ui {
     println("***********************************************************");
     println("1. Insert New Information");
     println("2. Delete Information");
-    println("3. Return to Main Menu");
+    println("q. Return to Main Menu");
   }
 
   private void printInsertMenu() {
@@ -366,7 +365,7 @@ public class Ui {
     println("1. Add a New Player");
     println("2. Add a New Coach");
     println("3. Add a New Team");
-    println("4. Return to Updates Menu.");
+    println("q. Return to Updates Menu");
   }
 
   private void printDeleteMenu() {
@@ -377,7 +376,7 @@ public class Ui {
     println("1. Delete a Specific Player");
     println("2. Delete a Specific Coach");
     println("3. Delete a Specific Team");
-    println("4. Return to Updates Menu.");
+    println("q. Return to Updates Menu");
   }
 
   private void print(Object s) {
