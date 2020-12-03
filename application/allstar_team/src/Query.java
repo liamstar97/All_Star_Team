@@ -1,6 +1,8 @@
 import java.sql.*;
+import java.io.*;
+import java.sql.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-
 
 public class Query {
 
@@ -9,9 +11,6 @@ public class Query {
   public Query(Connection conn) {
     this.conn = conn;
   }
-
-<<<<<<< Updated upstream
-=======
 
     public void insertPlayer() throws SQLException {
 
@@ -202,60 +201,80 @@ public class Query {
     scanner.close();
   }
 
->>>>>>> Stashed changes
   public void playerRank() throws SQLException {
-      Statement getPlayerRank = conn.createStatement();
+    Statement getPlayerRank = conn.createStatement();
 
-      String query = "SELECT Name, PLAYER_Rank FROM PLAYERS JOIN ALLSTAR_NOMINEES PLAYERS_SSN ON SSN = PLAYERS_SSN";
+    String query = "SELECT Name, PLAYER_Rank FROM PLAYERS JOIN ALLSTAR_NOMINEES PLAYERS_SSN ON SSN = PLAYERS_SSN";
 
-      ResultSet result = getPlayerRank.executeQuery(query);
+    ResultSet result = getPlayerRank.executeQuery(query);
 
-      while(result.next()){
-          String name = result.getString(1);
-          int rank = result.getInt(2);
+    while (result.next()) {
+      String name = result.getString(1);
+      int rank = result.getInt(2);
 
-          System.out.println(name + " " + rank);
-      }
+      System.out.println(name + " " + rank);
+    }
   }
 
   public void getTeamWins() throws SQLException {
-      Statement getTeamWins = conn.createStatement();
+    Statement getTeamWins = conn.createStatement();
 
-      String query = "SELECT Team_name, Win FROM CHAMPIONSHIP_TEAM";
+    String query = "SELECT Team_name, Win FROM CHAMPIONSHIP_TEAM";
 
-      ResultSet result = getTeamWins.executeQuery(query);
+    ResultSet result = getTeamWins.executeQuery(query);
 
-      while(result.next()){
-          String teamName = result.getString(1);
-          int wins = result.getInt(2);
+    while (result.next()) {
+      String teamName = result.getString(1);
+      int wins = result.getInt(2);
 
-          System.out.println(teamName + " " + wins);
-      }
+      System.out.println(teamName + " " + wins);
+    }
   }
 
   public void getParticipation() throws SQLException {
 
-      int count = 0;
-      Statement getParticipation = conn.createStatement();
-      String query = "SELECT Team_name FROM CHAMPIONSHIP_TEAM";
-      ResultSet results = getParticipation.executeQuery(query);
+    int count = 0;
+    Statement getParticipation = conn.createStatement();
+    String query = "SELECT Team_name FROM CHAMPIONSHIP_TEAM";
+    ResultSet results = getParticipation.executeQuery(query);
 
-
-      while (results.next()) {
-          count++;
-      }
-      System.out.println(count);
+    while (results.next()) {
+      count++;
+    }
+    System.out.println(count);
   }
 
-    private boolean validateInt(String input){
-        Scanner userInput = new Scanner(input);
+  private boolean validateInt(String input) {
+    Scanner userInput = new Scanner(input);
 
-        for(int i = 0; i < input.length(); i++){
-            if(!userInput.hasNextInt())
-                return false;
-        }
-        return true;
+    for (int i = 0; i < input.length(); i++) {
+      if (!userInput.hasNextInt())
+        return false;
     }
+    return true;
+  }
 
+  private void print(Object s) {
+    System.out.print(s);
+  }
+
+  private void println(Object s) {
+    System.out.println(s);
+  }
+
+  private String readEntry(String prompt) {
+    try {
+      StringBuffer buffer = new StringBuffer();
+      print(prompt);
+      System.out.flush();
+      int c = System.in.read();
+      while (c != '\n' && c != -1) {
+        buffer.append((char) c);
+        c = System.in.read();
+      }
+      return buffer.toString().trim();
+    } catch (IOException e) {
+      return "";
+    }
+  }
 }
-
