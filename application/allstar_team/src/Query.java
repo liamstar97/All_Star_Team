@@ -60,6 +60,9 @@ public class Query {
     } catch(NumberFormatException n){
         System.out.println("Invalid input");
         insertPlayer();
+    } catch(SQLException s){
+        System.out.println("SQL Exception error, please doublecheck the data and try again");
+        insertPlayer();
     }
     // ResultSet r = p.executeQuery();
     scanner.close();
