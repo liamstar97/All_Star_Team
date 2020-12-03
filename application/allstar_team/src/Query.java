@@ -146,6 +146,10 @@ public class Query {
 
           String univ = readEntry("Please enter the university this team belongs to: \n");
 
+          Statement rankTest = conn.createStatement();
+
+          String stringRank = readEntry("Please enter the rank of the team")
+
           p.clearParameters();
           p.setInt(1,id);
           p.setString(2,name);
