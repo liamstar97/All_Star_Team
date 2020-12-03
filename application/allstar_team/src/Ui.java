@@ -36,26 +36,6 @@ public class Ui {
     }
   }
 
-  private char getMenuOption() {
-    System.out.flush();
-    String ch = readLine();
-    if (ch.toCharArray().length > 1) {
-      return '0';
-    }
-    switch (ch.charAt(0)) {
-      case '1':
-        return '1';
-      case '2':
-        return '2';
-      case '3':
-        return '3';
-      case '4':
-        return '4';
-      default:
-        return '0';
-    }
-  }
-
   private void mainMenu(Connection conn) throws SQLException {
     boolean quit = false;
 
@@ -64,6 +44,41 @@ public class Ui {
       print("Type in your option: ");
       println("");
       switch (getMenuOption()) {
+        case '0':
+          println(" Not a valid option ");
+          break;
+        case '1':
+          println("case 1");
+          break;
+        case '2':
+          statsMenu();
+          break;
+        case '3':
+          println("case 3");
+          break;
+        case '4':
+          quit = true;
+          println("case 4");
+          conn.close();
+          break;
+      }
+    } while (!quit);
+  }
+
+  private void statsMenu(Connection conn) throws SQLException {
+    boolean quit = false;
+
+    printStatsMenu();
+
+    do{
+
+      println("Type in your selection... "
+      System.out.flush();
+      String userInput = readLine();
+      if (ch.toCharArray().length > 1) {
+        "Not a valid option";
+      }
+      switch (ch)) {
         case '0':
           println(" Not a valid option ");
           break;
@@ -82,7 +97,8 @@ public class Ui {
           conn.close();
           break;
       }
-    } while (!quit);
+  } while (!quit);
+
   }
 
   private String readEntry(String prompt) {
@@ -118,12 +134,14 @@ public class Ui {
 
   private void printMainMenu() {
     println("***********************************************************");
-    println("            Select an All-Star Team Application            ");
+    println("                       ***********                         ")
+    println("            Welcome to Selecting an All-Star Team          ");
+    println("                       ***********                         ")
     println("***********************************************************");
-    println("1. Score");
-    println("2. Wins per team");
-    println("3. Championship participation");
-    println("4. Quit");
+    println("             1. Search & Browse the Database");
+    println("               2. Statistics & Data Mining");
+    println("                        3. Updates");
+    println("                         4. Quit");
   }
 
   private void printStatsMenu() {
