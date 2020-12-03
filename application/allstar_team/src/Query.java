@@ -2,7 +2,6 @@ import java.sql.*;
 import java.io.*;
 import java.sql.Date;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Query {
 
