@@ -14,7 +14,7 @@ public class Query {
 
   public void insertPlayer() throws SQLException {
     Scanner scanner = new Scanner(System.in);
-    String query = "INSERT INTO PLAYERS VALUES (?,?,'?','?',?,'?','?',?,'?',?);";
+    String query = "INSERT INTO PLAYERS VALUES (? , ? , ? , ? , ? , ? , ? , ? , ? , ?);";
     PreparedStatement p = conn.prepareStatement(query);
     try {
       String SSNString = readEntry("Enter the player's SSN: \n");
