@@ -2,7 +2,6 @@ import java.sql.*;
 import java.io.*;
 import java.sql.Date;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Query {
 
@@ -12,10 +11,132 @@ public class Query {
     this.conn = conn;
   }
 
+  public void listNominees() throws SQLException {
+    String[] strings = {"Center", "Guard", "Inside Receiver", "Quarterback", "Running Back", "Tackler"};
+    String query = "SELECT Name, PLAYER_Rank " +
+        "FROM PLAYERS JOIN ALLSTAR_NOMINEES AN on PLAYERS.SSN = AN.PLAYERS_SSN " +
+        "WHERE Position = ? " +
+        "ORDER BY PLAYER_Rank";
+    PreparedStatement statement = conn.prepareStatement(query);
+    println("                   ---------------------");
+    for (String s : strings) {
+      statement.setString(1, s.toLowerCase());
+      ResultSet results = statement.executeQuery();
+      // print results
+      if (results.next()) {
+        println(s + "s:");
+        printNomineeResults(results);
+        while (results.next()) {
+        printNomineeResults(results);
+        }
+      }
+      statement.clearParameters();
+    }
+  }
+
+  private void printNomineeResults(ResultSet results) throws SQLException {
+    String name;
+    int playerRank;
+    name = results.getString(1);
+    playerRank = results.getInt(2);
+    println("    " + name + ", Rank: " + playerRank );
+  }
+
+  public void searchTeamInfo() throws SQLException {
+    String query = "" +
+        "SELECT P.Name, C.Name, Team_rank " +
+        "FROM CHAMPIONSHIP_TEAM " +
+        "JOIN PLAYERS P on CHAMPIONSHIP_TEAM.ID = P.CHAMPIONSHIP_TEAMS_ID " +
+        "JOIN COACH C on CHAMPIONSHIP_TEAM.COACH_SSN = C.SSN " +
+        "WHERE Team_name = ? " +
+        "ORDER BY P.Name";
+    PreparedStatement statement = conn.prepareStatement(query);
+    String teamName = readEntry("Enter team name: ");
+    statement.setString(1, teamName);
+    ResultSet results = statement.executeQuery();
+    results.next();
+    println("                   ---------------------");
+    println(teamName + ":");
+    println("Coach: " + results.getString(2));
+    println("Rank: " + results.getInt(3));
+    println("Players:");
+    println("1.   " + results.getString(1));
+    int count = 2;
+    while (results.next()) { // TODO: add spaces dynamically
+      println(count + ".   " + results.getString(1));
+      count++;
+    }
+  }
+
+  public void searchGameInfo() throws SQLException {
+    String queryWins = "SELECT Location, Date, Score, C.Name, AC.Name " +
+        "FROM ALLSTAR_GAME " +
+        "JOIN CHAMPIONSHIP_TEAM CT on ALLSTAR_GAME.CHAMPIONSHIP_TEAMS_ID_WINNER = CT.ID " +
+        "JOIN COACH C on ALLSTAR_GAME.COACH_SSN = C.SSN " +
+        "JOIN ASSISTANT_COACH AC on ALLSTAR_GAME.ASSISTANT_COACH_SSN = AC.SSN " +
+        "WHERE CT.Team_name = ? " +
+        "ORDER BY Date DESC";
+    PreparedStatement winStatement = conn.prepareStatement(queryWins);
+
+    String queryLosses = "SELECT Location, Date, Score, C.Name, AC.Name " +
+        "FROM ALLSTAR_GAME " +
+        "JOIN CHAMPIONSHIP_TEAM CT on ALLSTAR_GAME.CHAMPIONSHIP_TEAMS_ID_LOSER = CT.ID " +
+        "JOIN COACH C on ALLSTAR_GAME.COACH_SSN = C.SSN " +
+        "JOIN ASSISTANT_COACH AC on ALLSTAR_GAME.ASSISTANT_COACH_SSN = AC.SSN " +
+        "WHERE CT.Team_name = ? " +
+        "ORDER BY Date DESC";
+    PreparedStatement lossStatement = conn.prepareStatement(queryLosses);
+
+    String teamName = readEntry("Enter team name: ");
+    winStatement.setString(1, teamName);
+    lossStatement.setString(1, teamName);
+
+    ResultSet winResults = winStatement.executeQuery();
+    ResultSet lossResults = lossStatement.executeQuery();
+
+    println("                   ---------------------");
+    println(teamName + "Wins" + ":");
+    printGameInfo(winResults);
+    println(teamName + "Losses: ");
+    printGameInfo(lossResults);
+  }
+
+  private void printGameInfo(ResultSet results) throws SQLException {
+    while (results.next()) {
+      String location = results.getString(1);
+      Date date = results.getDate(2);
+      String score = results.getString(3);
+      String coach = results.getString(4);
+      String assistantCoach = results.getString(5);
+      println("(" + date + ") " + location + ", Score: " + score + ", Coach: " + coach + ", Assistant Coach: " + assistantCoach);
+    }
+  }
+
+  public void searchCoachInfo() throws SQLException {
+    String query = "SELECT Team_name " +
+        "FROM CHAMPIONSHIP_TEAM " +
+        "JOIN COACH C on C.SSN = CHAMPIONSHIP_TEAM.COACH_SSN " +
+        "WHERE C.Name = ? " +
+        "ORDER BY Team_name";
+    PreparedStatement statement = conn.prepareStatement(query);
+    String coach = readEntry("Enter coach name: ");
+    statement.setString(1, coach);
+    ResultSet results = statement.executeQuery();
+    println("                   ---------------------");
+    println("Teams:");
+    while (results.next()) {
+      String team = results.getString(1);
+      println("    " + team);
+    }
+  }
+
+
 
   public void insertPlayer() throws SQLException {
     try {
-      String query = "INSERT INTO PLAYERS VALUES (?,?,?,?,?,?,?,?,?,?)";
+      String query = "" +
+          "INSERT INTO PLAYERS " +
+          "VALUES (?,?,?,?,?,?,?,?,?,?)";
       PreparedStatement p = conn.prepareStatement(query);
       p.clearParameters();
 
