@@ -12,50 +12,52 @@ public class Query {
     this.conn = conn;
   }
 
+
     public void insertPlayer() throws SQLException {
 
-        try {
-            String query = "INSERT INTO PLAYERS VALUES (?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement p = conn.prepareStatement(query);
 
-            String SSNString = readEntry("Enter the player's SSN: \n");
-            int SSN = Integer.parseInt(SSNString);
+      try {
+          String query = "INSERT INTO PLAYERS VALUES (?,?,?,?,?,?,?,?,?,?)";
+          PreparedStatement p = conn.prepareStatement(query);
 
-            String teamIDStr = readEntry("Enter the player's Team ID: \n");
-            int teamID = Integer.parseInt(teamIDStr);
+          String SSNString = readEntry("Enter the player's SSN: \n");
+          int SSN = Integer.parseInt(SSNString);
 
-            String allstar = readEntry("Enter the number of times this player has been on an Allstar Team: \n");
-            int timeAllstar = Integer.parseInt(allstar);
+          String teamIDStr = readEntry("Enter the player's Team ID: \n");
+          int teamID = Integer.parseInt(teamIDStr);
 
-            String years = readEntry("Enter the player's number of years on their team: \n");
-            int yearsTeam = Integer.parseInt(years);
+          String allstar = readEntry("Enter the number of times this player has been on an Allstar Team: \n");
+          int timeAllstar = Integer.parseInt(allstar);
 
-            String name = readEntry("Enter the player's Name: \n");
+          String years = readEntry("Enter the player's number of years on their team: \n");
+          int yearsTeam = Integer.parseInt(years);
 
-            String address = readEntry("Enter the player's Address: \n");
+          String name = readEntry("Enter the player's Name: \n");
 
-            String bDate = readEntry("Enter the player's birth date as YYYY-MM-DD: \n");
-            Date birthDate = Date.valueOf(bDate);
+          String address = readEntry("Enter the player's Address: \n");
 
-            String position = readEntry("Enter the player's Position: \n");
+          String bDate = readEntry("Enter the player's birth date as YYYY-MM-DD: \n");
+          Date birthDate = Date.valueOf(bDate);
 
-            String univ = readEntry("Enter the player's University: \n");
+          String position = readEntry("Enter the player's Position: \n");
 
-            String collegeClass = readEntry("Enter the player's Class: \n");
+          String univ = readEntry("Enter the player's University: \n");
 
-            p.clearParameters();
-            p.setInt(1, SSN);
-            p.setInt(2, teamID);
-            p.setString(3, name);
-            p.setString(4, address);
-            p.setDate(5, birthDate);
-            p.setString(6, position);
-            p.setString(7, univ);
-            p.setInt(8, yearsTeam);
-            p.setString(9, collegeClass);
-            p.setInt(10, timeAllstar);
+          String collegeClass = readEntry("Enter the player's Class: \n");
 
-            p.executeUpdate();
+          p.clearParameters();
+          p.setInt(1, SSN);
+          p.setInt(2, teamID);
+          p.setString(3, name);
+          p.setString(4, address);
+          p.setDate(5, birthDate);
+          p.setString(6, position);
+          p.setString(7, univ);
+          p.setInt(8, yearsTeam);
+          p.setString(9, collegeClass);
+          p.setInt(10, timeAllstar);
+
+          p.executeUpdate();
 
         } catch (InputMismatchException e) {
             System.out.println("Invalid input");
