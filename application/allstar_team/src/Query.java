@@ -13,184 +13,193 @@ public class Query {
   }
 
 
-
   public void insertPlayer() throws SQLException {
     try {
       String query = "INSERT INTO PLAYERS VALUES (?,?,?,?,?,?,?,?,?,?)";
-      String name, address, position, univ, collegeClass;
-      Date birthDate;
-      int SSN, teamID, allstar, years;
-      // get user input
-      SSN = Integer.parseInt(readEntry("Enter the player's SSN: \n"));
-      teamID = Integer.parseInt(readEntry("Enter the player's Team ID: \n"));
-      allstar = Integer.parseInt(readEntry(
-          "Enter the number of times this player has been on an Allstar Team: \n"));
-      years = Integer.parseInt(readEntry("Enter the player's number of years on their team: \n"));
-      name = readEntry("Enter the player's Name: \n");
-      address = readEntry("Enter the player's Address: \n");
-      birthDate = Date.valueOf(readEntry("Enter the player's birth date as YYYY-MM-DD: \n"));
-      position = readEntry("Enter the player's Position: \n");
-      univ = readEntry("Enter the player's University: \n");
-      collegeClass = readEntry("Enter the player's Class: \n");
-      // prepare sql statement
       PreparedStatement p = conn.prepareStatement(query);
       p.clearParameters();
+
+      int SSN = Integer.parseInt(readEntry("Enter the player's SSN: \n"));
       p.setInt(1, SSN);
+
+      int teamID = Integer.parseInt(readEntry("Enter the player's Team ID: \n"));
       p.setInt(2, teamID);
+
+      int timeAllstar = Integer.parseInt(readEntry(
+          "Enter the number of times this player has been on an Allstar Team: \n"));
+      p.setInt(10, timeAllstar);
+
+      int yearsTeam = Integer.parseInt(readEntry("Enter the player's number of years on their team: \n"));
+      p.setInt(8, yearsTeam);
+
+      String name = readEntry("Enter the player's Name: \n");
       p.setString(3, name);
+
+      String address = readEntry("Enter the player's Address: \n");
       p.setString(4, address);
+
+      Date birthDate = Date.valueOf(readEntry("Enter the player's birth date as YYYY-MM-DD: \n"));
       p.setDate(5, birthDate);
+
+      String position = readEntry("Enter the player's Position: \n");
       p.setString(6, position);
+
+      String univ = readEntry("Enter the player's University: \n");
       p.setString(7, univ);
-      p.setInt(8, years);
+
+      String collegeClass = readEntry("Enter the player's Class: \n");
       p.setString(9, collegeClass);
-      p.setInt(10, allstar);
-      // execute prepared statement
+
       p.executeUpdate();
-    } catch (InputMismatchException e) { // catch invalid input
+    } catch (InputMismatchException e) {
       System.out.println("Invalid input");
       insertPlayer();
-    } catch (SQLException s) { // catch sql exception
+    } catch (SQLException s) {
       System.out.println(s.getMessage());
       insertPlayer();
     }
   }
 
   public void insertCoach() throws SQLException {
-
     try {
-      String query = "INSERT INTO COACH VALUES (?,?,?,?,?,?,?,?,?)";
-      String name, address, univ;
-      Date birthDate;
-      int SSN, yearsTeam, yearsTotal, champWins, semiFinals;
-      // get user input
-      SSN = Integer.parseInt(readEntry("Enter the coach's SSN: \n"));
-      yearsTeam = Integer.parseInt(readEntry("Enter the coach's number of years on their team: \n"));
-      yearsTotal = Integer.parseInt(readEntry("Enter the coach's total number of years coaching:"));
-      name = readEntry("Enter the coach's Name: \n");
-      address = readEntry("Enter the coach's Address: \n");
-      birthDate = Date.valueOf(readEntry("Enter the coach's birth date as YYYY-MM-DD: \n"));
-      univ = readEntry("Enter the player's University: \n");
-      champWins = Integer.parseInt(readEntry("Enter the number of championship games this coach has won: \n"));
-      semiFinals = Integer.parseInt(readEntry(
-          "Enter the number of times this coach has brought a team to the semifinals: \n"));
-      // prepare sql statement
+      String query = "" +
+          "INSERT INTO COACH " +
+          "VALUES (?,?,?,?,?,?,?,?,?)";
       PreparedStatement p = conn.prepareStatement(query);
       p.clearParameters();
-      p.setInt(1, SSN);
-      p.setString(2, name);
-      p.setString(3, address);
-      p.setDate(4, birthDate);
-      p.setString(5, univ);
-      p.setInt(6, yearsTeam);
-      p.setInt(7, yearsTotal);
-      p.setInt(8, champWins);
-      p.setInt(9, semiFinals);
-      // execute prepared statement
-      p.executeUpdate();
-    } catch (InputMismatchException e) { // catch invalid input
-      System.out.println("Invalid input");
-      insertPlayer();
-    } catch (SQLException s) { // catch sql exception
-      System.out.println(s.getMessage());
-      insertPlayer();
-    }
 
+      int SSN = Integer.parseInt(readEntry("Enter the coach's SSN: \n"));
+      p.setInt(1, SSN);
+
+      int years = Integer.parseInt(readEntry("Enter the total number of years spent as a coach: \n"));
+      p.setInt(7, years);
+
+      int yearsTeam = Integer.parseInt(readEntry("Enter the coach's number of years on their team: \n"));
+      p.setInt(6, yearsTeam);
+
+      String name = readEntry("Enter the coach's Name: \n");
+      p.setString(2, name);
+
+      String address = readEntry("Enter the coach's Address: \n");
+      p.setString(3, address);
+
+      Date birthDate = Date.valueOf(readEntry("Enter the coach's birth date as YYYY-MM-DD: \n"));
+      p.setDate(4, birthDate);
+
+      String univ = readEntry("Enter the coach's University: \n");
+      p.setString(5, univ);
+
+      int champWins = Integer.parseInt(readEntry(
+          "Enter the number of championship games this coach has won: \n"));
+      p.setInt(8, champWins);
+
+      int semiFinals = Integer.parseInt(readEntry(
+          "Enter the number of times this coach has brought a team to the semifinals: \n"));
+      p.setInt(9, semiFinals);
+
+      p.executeUpdate();
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid input");
+      insertCoach();
+    } catch (SQLException s) {
+      System.out.println(s.getMessage());
+      insertCoach();
+    }
   }
 
   public void insertTeam() throws SQLException {
     try {
-      String query = "INSERT INTO CHAMPIONSHIP_TEAM VALUES (?,?,?,?,?,?,?,?,?)";
-      String name, univ;
-      int id, coachSSN, assCoachSSN, wins, losses, ties;
-      // get user input
-      id = Integer.parseInt(readEntry("Please enter the Team's ID: \n"));
-      name = readEntry("Please enter the Team's name: \n");
-      coachSSN = Integer.parseInt(readEntry(
-          "Please enter the SSN of an existing coach who is not currently the coach of a team: \n"));
-      assCoachSSN = Integer.parseInt(readEntry(
-          "Please enter the SSN of an existing assistant coach who is not currently part of a team: \n"));
-      univ = readEntry("Please enter the university this team belongs to: \n");
-      wins = Integer.parseInt(readEntry("Please enter the team's wins: \n"));
-      losses = Integer.parseInt(readEntry("Please enter the team's losses: \n"));
-      ties = Integer.parseInt(readEntry("Please enter the team's ties: \n"));
+      String query = "" +
+          "INSERT INTO CHAMPIONSHIP_TEAM " +
+          "VALUES (?,?,?,?,?,?,?,?,?)";
+      PreparedStatement p = conn.prepareStatement(query);
+      p.clearParameters();
 
-      Statement rankTest = conn.createStatement(); // TODO: Can this be a separate method?
+      int id = Integer.parseInt(readEntry("Please enter the Team's ID: \n"));
+      p.setInt(1, id);
+
+      String name = readEntry("Please enter the Team's name: \n");
+      p.setString(2, name);
+
+      int coachSSN = Integer.parseInt(readEntry(
+          "Please enter the SSN of an existing coach who is not currently the coach of a team: \n"));
+      p.setInt(3, coachSSN);
+
+      String stringAssCoach = readEntry("Please enter the SSN of an existing assistant coach who is not currently part of a team, enter q if no assistance coach: \n");
+      if (!stringAssCoach.equals("q")) {
+        int assCoachSSN = Integer.parseInt(stringAssCoach);
+        p.setInt(4, assCoachSSN);
+      } else {
+        p.setNull(4, Types.INTEGER);
+      }
+
+      String univ = readEntry("Please enter the university this team belongs to: \n");
+      p.setString(5, univ);
+
+      Statement rankTest = conn.createStatement(); // TODO: can this be its own function?
       int rank = 1;
       String rankTestQuery = "" +
           "SELECT Team_name " +
           "FROM CHAMPIONSHIP_TEAM";
       ResultSet results = rankTest.executeQuery(rankTestQuery);
-
       while (results.next()) {
         rank++;
       }
-      // prepare sql statement
-      PreparedStatement p = conn.prepareStatement(query);
-      p.clearParameters();
-      p.setInt(1, id);
-      p.setString(2, name);
-      p.setInt(3, coachSSN);
-      p.setInt(4, assCoachSSN);
-      p.setString(5, univ);
       p.setInt(6, rank);
+
+      String stringWins = readEntry("Please enter the team's wins: \n");
+      int wins = Integer.parseInt(stringWins);
       p.setInt(7, wins);
+
+      String stringLosses = readEntry("Please enter the team's losses: \n");
+      int losses = Integer.parseInt(stringLosses);
       p.setInt(8, losses);
+
+      String stringTies = readEntry("Please enter the team's ties: \n");
+      int ties = Integer.parseInt(stringTies);
       p.setInt(9, ties);
-      // execute prepared statement
+
       p.executeUpdate();
-    } catch (InputMismatchException e) { // catch invalid input
-      println("Invalid input");
-      insertPlayer();
-    } catch (SQLException s) { // catch sql exception
-      println(s.getMessage());
-      insertPlayer();
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid input");
+      insertTeam();
+    } catch (SQLException s) {
+      System.out.println(s.getMessage());
+      insertTeam();
     }
   }
 
   public void deletePlayer() throws SQLException {
-    Scanner scanner = new Scanner(System.in);
     String query = "" +
-        "SELECT fname, lname, salary " +
-        "FROM employee " +
-        "WHERE dno = ? " +
-        "ORDER BY salary DESC";
+        "DELETE FROM PLAYERS " +
+        "WHERE SSN = ?";
     PreparedStatement p = conn.prepareStatement(query);
-    String dno = scanner.next("Enter a department number: ");
+    int SSN = Integer.parseInt(readEntry("Enter Player SSN to Delete: "));
     p.clearParameters();
-    p.setString(1, dno);
-    ResultSet r = p.executeQuery();
-    scanner.close();
+    p.setInt(1, SSN);
+    p.executeUpdate();
   }
 
   public void deleteCoach() throws SQLException {
-    Scanner scanner = new Scanner(System.in);
     String query = "" +
-        "SELECT fname, lname, salary " +
-        "FROM employee " +
-        "WHERE dno = ? " +
-        "ORDER BY salary DESC";
+        "DELETE FROM COACH " +
+        "WHERE SSN = ?";
     PreparedStatement p = conn.prepareStatement(query);
-    String dno = scanner.next("Enter a department number: ");
+    int SSN = Integer.parseInt(readEntry("Enter Coach SSN to Delete: "));
     p.clearParameters();
-    p.setString(1, dno);
-    ResultSet r = p.executeQuery();
-    scanner.close();
+    p.setInt(1, SSN);
+    p.executeUpdate();
   }
 
   public void deleteTeam() throws SQLException {
-    Scanner scanner = new Scanner(System.in);
     String query = "" +
-        "SELECT fname, lname, salary " +
-        "FROM employee " +
-        "WHERE dno = ? " +
-        "ORDER BY salary DESC";
+        "DELETE FROM CHAMPIONSHIP_TEAM " +
+        "WHERE ID = ?";
     PreparedStatement p = conn.prepareStatement(query);
-    String dno = scanner.next("Enter a department number: ");
+    int ID = Integer.parseInt(readEntry("Enter Team ID to Delete: "));
     p.clearParameters();
-    p.setString(1, dno);
-    ResultSet r = p.executeQuery();
-    scanner.close();
+    p.setInt(1, ID);
+    p.executeUpdate();
   }
 
   public void playerRank() throws SQLException {
@@ -240,16 +249,6 @@ public class Query {
       count++;
     }
     println(count);
-  }
-
-  private boolean validateInt(String input) {
-    Scanner userInput = new Scanner(input);
-
-    for (int i = 0; i < input.length(); i++) {
-      if (!userInput.hasNextInt())
-        return false;
-    }
-    return true;
   }
 
   private void print(Object s) {
