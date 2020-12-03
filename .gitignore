@@ -1,3 +1,4 @@
 *.tmp
 *.mwb.bak
-application/allstar_team/.idea
+application/allstar_team/.idea/
+application/allstar_team/out/
