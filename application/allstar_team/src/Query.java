@@ -14,6 +14,7 @@ public class Query {
 
     public void insertPlayer() throws SQLException {
         Scanner scanner = new Scanner(System.in);
+
         try {
             String query = "INSERT INTO PLAYERS VALUES (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement p = conn.prepareStatement(query);
@@ -55,14 +56,16 @@ public class Query {
             p.setString(9, collegeClass);
             p.setInt(10, timeAllstar);
 
+            p.executeUpdate();
+
         } catch (InputMismatchException e) {
             System.out.println("Invalid input");
             insertPlayer();
         } catch(SQLException s){
-            System.out.println(s.getErrorCode());
+            System.out.println(s.getMessage());
             insertPlayer();
         }
-        // ResultSet r = p.executeQuery();
+
         scanner.close();
         // while (r.next()) {
         // String fname = r.getString(1);
