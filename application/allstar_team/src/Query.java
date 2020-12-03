@@ -13,7 +13,6 @@ public class Query {
   }
 
     public void insertPlayer() throws SQLException {
-        Scanner scanner = new Scanner(System.in);
 
         try {
             String query = "INSERT INTO PLAYERS VALUES (?,?,?,?,?,?,?,?,?,?)";
@@ -65,26 +64,56 @@ public class Query {
             System.out.println(s.getMessage());
             insertPlayer();
         }
-
-        scanner.close();
-        // while (r.next()) {
-        // String fname = r.getString(1);
-        // String lname = r.getString(2);
-        // double salary = r.getDouble(3);
-        // System.out.println(String.format("%-20s %s", fname + " " + lname, "Salary: "
-        // + salary));
-        // }
     }
 
   public void insertCoach() throws SQLException {
-    Scanner scanner = new Scanner(System.in);
-    String query = "SELECT fname, lname, salary FROM employee WHERE dno = ? ORDER BY salary DESC;";
-    PreparedStatement p = conn.prepareStatement(query);
-    String dno = scanner.next("Enter a department number: ");
-    p.clearParameters();
-    p.setString(1, dno);
-    ResultSet r = p.executeQuery();
-    scanner.close();
+
+      try {
+          String query = "INSERT INTO COACH VALUES (?,?,?,?,?,?,?,?,?)";
+          PreparedStatement p = conn.prepareStatement(query);
+
+          String SSNString = readEntry("Enter the coach's SSN: \n");
+          int SSN = Integer.parseInt(SSNString);
+
+          String years = readEntry("Enter the coach's number of years on their team: \n");
+          int yearsTeam = Integer.parseInt(years);
+
+          String name = readEntry("Enter the coach's Name: \n");
+
+          String address = readEntry("Enter the coach's Address: \n");
+
+          String bDate = readEntry("Enter the coach's birth date as YYYY-MM-DD: \n");
+          Date birthDate = Date.valueOf(bDate);
+
+          String univ = readEntry("Enter the player's University: \n");
+
+          String wins = readEntry("Enter the number of championship games this coach has won: \n");
+          int champWins =Integer.parseInt(wins);
+
+          String semi = readEntry("Enter the number of times this coach has brought a team to the semifinals: \n");
+          int semiFinals = Integer.parseInt(semi);
+
+          p.clearParameters();
+          p.setInt(1, SSN);
+          p.setString(2, name);
+          p.setString(3, address);
+          p.setDate(4, birthDate);
+          p.setString(5, univ);
+          p.setInt(6, yearsTeam);
+          p.setString(7, years);
+          p.setInt(8, champWins);
+          p.setInt(9, semiFinals);
+
+          p.executeUpdate();
+
+      } catch (InputMismatchException e) {
+          System.out.println("Invalid input");
+          insertPlayer();
+      } catch(SQLException s){
+          System.out.println(s.getMessage());
+          insertPlayer();
+      }
+
   }
 
   public void insertTeam() throws SQLException {
