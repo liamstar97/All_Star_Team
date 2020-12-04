@@ -143,11 +143,14 @@ public class Query {
     }
   }
 
-  /**insertPlayer() prompts user to enter in details about the player they wish to add, then tries to add this player
-   *  to the database via a prepared statement
-   *
+  /**
+   * The insertPlayer method accepts user input for each of the 10 attributes
+   * of a player in the Allstar_Team database, creates a PreparedStatement
+   * object with each parameter, and uses the PreparedStatement executeUpdate
+   * method to initiate the query within the database.
    * @throws SQLException
    */
+
   public void insertPlayer() throws SQLException {
     try {
       String query = "" +
@@ -201,11 +204,14 @@ public class Query {
     }
   }
 
-  /**insertCaoch() propmts user to enter in details about the coach they'd like to add, and packs them into a prepared
-   * statement which is sent to the database
-   *
+  /**
+   * The insertCoach method accepts user input for each of the 9 attributes
+   * of a coach in the Allstar_Team database, creates a PreparedStatement
+   * object with each parameter, and uses the PreparedStatement executeUpdate
+   * method to initiate the query within the database.
    * @throws SQLException
    */
+
   public void insertCoach() throws SQLException {
     try {
       String query = "" +
@@ -257,11 +263,16 @@ public class Query {
     }
   }
 
-  /**insertTeam() prompts the user to enter in details of a new team, which is packed into a prepared statement, and
-   * then sent to the database
-   *
+  /**
+   * The insertTeam method accepts user input for each of the 9 attributes
+   * of a team in the Allstar_Team database, creates a PreparedStatement
+   * object with each parameter, and uses the PreparedStatement executeUpdate
+   * method to initiate the query within the database. This method also handles
+   * placing the new team in the correctly ranked position and setting
+   * the assistant coach to null if no assistant coach is entered.
    * @throws SQLException
    */
+
   public void insertTeam() throws SQLException {
     try {
       String query = "" +
@@ -321,11 +332,13 @@ public class Query {
     }
   }
 
-  /**deletePlayer() prompts the user to enter an SSN of the target player, then uses that in a prepared statement to
-   * delete the player with this SSN in the database
-   *
+  /**
+   * The deletePlayer method accepts the SSN of a player that the user wishes
+   * to delete from the database, creates a PreparedStatement object with the 
+   * input parameters, and executes the update on the database.
    * @throws SQLException
    */
+
   public void deletePlayer() throws SQLException {
     String query = "" +
         "DELETE FROM PLAYERS " +
@@ -337,11 +350,13 @@ public class Query {
     p.executeUpdate();
   }
 
-  /**Prompts user to enter in the SSN of the target coach, then removes the coach if they are not currently coaching a
-   * team
-   *
+  /**
+   * The deleteCoach method accepts the SSN of a coach that the user wishes
+   * to delete from the database, creates a PreparedStatement object with the 
+   * input parameters, and executes the update on the database.
    * @throws SQLException
    */
+
   public void deleteCoach() throws SQLException {
     String query = "" +
         "DELETE FROM COACH " +
@@ -353,11 +368,13 @@ public class Query {
     p.executeUpdate();
   }
 
-  /**Prompts user to enter the team id of the target team, then the team is deleted from the database using a
-   * prepared statement
-   *
-    * @throws SQLException
+  /**
+   * The deleteTeam method accepts the Team ID of a team that the user wishes
+   * to delete from the database, creates a PreparedStatement object with the 
+   * input parameters, and executes the update on the database.
+   * @throws SQLException
    */
+
   public void deleteTeam() throws SQLException {
     String query = "" +
         "DELETE FROM CHAMPIONSHIP_TEAM " +
