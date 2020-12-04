@@ -333,6 +333,7 @@ public class Ui {
     println(" 2. Wins per team");
     println(" 3. Championship participation");
     println(" q. Quit");
+    println(" x. To exit program");
   }
 
   /**
@@ -345,6 +346,7 @@ public class Ui {
     println(" 1. Browse Nominees");
     println(" 2. Search Nominees");
     println(" q. Back");
+    println(" x. To exit program");
   }
 
   /**
@@ -367,6 +369,7 @@ public class Ui {
     println(" 2. Game Info");
     println(" 3. Coach Info");
     println(" q. Back");
+    println(" x. To exit program");
   }
 
   /**
@@ -382,6 +385,7 @@ public class Ui {
     println(" 1. Insert New Information");
     println(" 2. Delete Information");
     println(" q. Return to Main Menu");
+    println(" x. To exit program");
   }
 
   /**
@@ -398,6 +402,7 @@ public class Ui {
     println(" 2. Add a New Coach");
     println(" 3. Add a New Team");
     println(" q. Return to Updates Menu");
+    println(" x. To exit program");
   }
 
   /**
@@ -414,6 +419,7 @@ public class Ui {
     println(" 2. Delete a Specific Coach");
     println(" 3. Delete a Specific Team");
     println(" q. Return to Updates Menu");
+    println(" x. To exit program");
   }
 
   /**
