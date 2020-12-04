@@ -8,7 +8,7 @@
  */
 import java.sql.*;
 
-public class main {
+public class app {
   public static void main(String args[]) {
     Ui allstarTeam = null;
     try {
@@ -22,13 +22,15 @@ public class main {
     } catch (SQLException ex) {
       System.out.println(ex);
     } finally {
-      if (allstarTeam.getConnection() != null) {
-        try {
-          allstarTeam.getConnection().close();
-        } catch (SQLException e) {
-          System.out.println(e);
+      try {
+        if (allstarTeam.getConnection() != null) { // TODO: Find a fix for null pointer exception, might cause bugs
+          try {
+            allstarTeam.getConnection().close();
+          } catch (SQLException e) {
+            System.out.println(e);
+          }
         }
-      } else {
+      } catch (NullPointerException e) {
         System.out.println("Error NullPointerException, allstarTeam is Null");
         System.exit(1);
       }

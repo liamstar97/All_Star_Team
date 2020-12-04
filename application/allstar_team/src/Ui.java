@@ -43,12 +43,22 @@ public class Ui {
    * @throws SQLException
    */
   private Connection login() throws SQLException {
-    String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/" +
-        "Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
-    String user, pass;
-    user = readEntry("Enter Username: ");
-    pass = readEntry("Enter Password: ");
-    return DriverManager.getConnection(url, user, pass);
+    try {
+      String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/" +
+          "Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
+      String user, pass;
+      user = readEntry("Enter Username: ");
+      pass = readEntry("Enter Password: ");
+      return DriverManager.getConnection(url, user, pass);
+    } catch (SQLException e) { // prompt user for username and password again if incorrect
+      println("Incorrect username or password! Press enter to try again, or 'x' to exit!");
+      if (readLine().equals("x")) {
+        System.exit(0);
+        return null;
+      } else {
+        return login();
+      }
+    }
   }
 
   /**
