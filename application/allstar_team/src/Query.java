@@ -178,11 +178,13 @@ public class Query {
 
       p.executeUpdate();
     } catch (InputMismatchException e) {
-      System.out.println("Invalid input");
+      System.out.println("Invalid input.");
       insertPlayer();
     } catch (SQLException s) {
       System.out.println(s.getMessage());
       insertPlayer();
+    } catch (NumberFormatException n) {
+      println("Invlaid input.");
     }
   }
 
@@ -230,6 +232,8 @@ public class Query {
     } catch (SQLException s) {
       System.out.println(s.getMessage());
       insertCoach();
+    } catch (NumberFormatException n) {
+      println("Invlaid input.");
     }
   }
 
@@ -292,6 +296,8 @@ public class Query {
     } catch (SQLException s) {
       System.out.println(s.getMessage());
       insertTeam();
+    } catch (NumberFormatException n) {
+      println("Invlaid input.");
     }
   }
 
@@ -328,6 +334,7 @@ public class Query {
     p.executeUpdate();
   }
 
+  /**Prints out the name and rank of the players who have been nominated as allstars**/
   public void playerRank() throws SQLException {
     Statement getPlayerRank = conn.createStatement();
 
@@ -338,6 +345,7 @@ public class Query {
 
     ResultSet result = getPlayerRank.executeQuery(query);
 
+    //Loops through results and prints them out
     while (result.next()) {
       String name = result.getString(1);
       int rank = result.getInt(2);
@@ -346,6 +354,7 @@ public class Query {
     }
   }
 
+  /**Prints out all team names and their number of wins**/
   public void getTeamWins() throws SQLException {
 
     Statement getTeamWins = conn.createStatement();
@@ -354,6 +363,7 @@ public class Query {
         "FROM CHAMPIONSHIP_TEAM";
     ResultSet result = getTeamWins.executeQuery(query);
 
+    //Loops through results and prints them out
     while (result.next()) {
       String teamName = result.getString(1);
       int wins = result.getInt(2);
@@ -362,13 +372,15 @@ public class Query {
     }
   }
 
+  /**Prints out all teams that have participated in an all-star game**/
   public void getParticipation() throws SQLException {
     int count = 0;
 
     Statement getParticipation = conn.createStatement();
     String query = "" +
-        "SELECT Team_name " +
-        "FROM CHAMPIONSHIP_TEAM";
+        "SELECT DISTINCT Team_name " +
+        "FROM CHAMPIONSHIP_TEAM JOIN ALLSTAR_GAME " +
+        "ON CHAMPIONSHIP_TEAMS_ID_WINNER = ID OR CHAMPIONSHIP_TEAMS_ID_LOSER = ID";
     ResultSet results = getParticipation.executeQuery(query);
 
     while (results.next()) {
@@ -377,14 +389,17 @@ public class Query {
     println(count);
   }
 
+  /**Utility method for shorthand printing***/
   private void print(Object s) {
     System.out.print(s);
   }
 
+  /**Utility method for shorthand printing**/
   private void println(Object s) {
     System.out.println(s);
   }
 
+  /**Taken from provided code in worksheet09 of CS331**/
   private String readEntry(String prompt) {
     try {
       StringBuffer buffer = new StringBuffer();

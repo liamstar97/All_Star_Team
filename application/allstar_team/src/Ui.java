@@ -142,24 +142,26 @@ public class Ui {
     pauseMenu();
   }
 
+  /**
+   * statsMenu has switch case that takes in user's input using getOption() then calls the corresponding query
+   * @param query
+   * @throws SQLException
+   */
   private void statsMenu(Query query) throws SQLException {
     boolean quit = false;
     printStatsMenu();
     do{
       switch (getOption()) {
         default:
-          println(" Not a valid option ");
+          println("Not a valid option\n");
           break;
         case '1':
-          println("case 1");
           query.playerRank();
           break;
         case '2':
-          println("case 2");
           query.getTeamWins();
           break;
         case '3':
-          println("case 3");
           query.getParticipation();
           break;
         case 'q':
@@ -373,10 +375,12 @@ public class Ui {
     }
   }
 
+  /**Utility method for shorthand printing**/
   private void print(Object s) {
     System.out.print(s);
   }
 
+  /**Utility method for shorthand printing**/
   private void println(Object s) {
     System.out.println(s);
   }
