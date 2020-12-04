@@ -43,12 +43,22 @@ public class Ui {
    * @throws SQLException
    */
   private Connection login() throws SQLException {
-    String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/" +
-        "Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
-    String user, pass;
-    user = readEntry("Enter Username: ");
-    pass = readEntry("Enter Password: ");
-    return DriverManager.getConnection(url, user, pass);
+    try {
+      String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/" +
+          "Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
+      String user, pass;
+      user = readEntry("Enter Username: ");
+      pass = readEntry("Enter Password: ");
+      return DriverManager.getConnection(url, user, pass);
+    } catch (SQLException e) { // prompt user for username and password again if incorrect
+      println("Incorrect username or password! Press enter to try again, or 'x' to exit!");
+      if (readLine().equals("x")) {
+        System.exit(0);
+        return null;
+      } else {
+        return login();
+      }
+    }
   }
 
   /**
@@ -102,6 +112,10 @@ public class Ui {
         case 'q':
           quit = true;
           break;
+        case 'x':
+          CONNECTION.close();
+          System.exit(0);
+          break;
         default:
           println("not a valid input");
           break;
@@ -133,6 +147,10 @@ public class Ui {
           break;
         case 'q':
           quit = true;
+          break;
+        case 'x':
+          CONNECTION.close();
+          System.exit(0);
           break;
         default:
           println("not a valid input");
@@ -177,6 +195,10 @@ public class Ui {
         case 'q':
           quit = true;
           break;
+        case 'x':
+          CONNECTION.close();
+          System.exit(0);
+          break;
       }
     } while (!quit);
   }
@@ -190,7 +212,7 @@ public class Ui {
    * which houses all of the query-based functionality of the program.
    */
   
-  private void updatesMenu(Query query) {
+  private void updatesMenu(Query query) throws SQLException{
     boolean quit = false;
     do {
       printUpdatesMenu();
@@ -203,6 +225,10 @@ public class Ui {
           break;
         case 'q':
           quit = true;
+          break;
+        case 'x':
+          CONNECTION.close();
+          System.exit(0);
           break;
         default:
           System.out.println("Not an option.");
@@ -236,6 +262,10 @@ public class Ui {
             break;
           case 'q':
             quit = true;
+            break;
+          case 'x':
+            CONNECTION.close();
+            System.exit(0);
             break;
           default:
             println("Not an option.");
@@ -273,6 +303,10 @@ public class Ui {
           case 'q':
             quit = true;
             break;
+          case 'x':
+            CONNECTION.close();
+            System.exit(0);
+            break;
           default:
             println("Not an option.");
             break;
@@ -309,6 +343,7 @@ public class Ui {
     println(" 2. Wins per team");
     println(" 3. Championship participation");
     println(" q. Quit");
+    println(" x. To exit program");
   }
 
   /**
@@ -321,6 +356,7 @@ public class Ui {
     println(" 1. Browse Nominees");
     println(" 2. Search Nominees");
     println(" q. Back");
+    println(" x. To exit program");
   }
 
   /**
@@ -343,6 +379,7 @@ public class Ui {
     println(" 2. Game Info");
     println(" 3. Coach Info");
     println(" q. Back");
+    println(" x. To exit program");
   }
 
   /**
@@ -358,6 +395,7 @@ public class Ui {
     println(" 1. Insert New Information");
     println(" 2. Delete Information");
     println(" q. Return to Main Menu");
+    println(" x. To exit program");
   }
 
   /**
@@ -374,6 +412,7 @@ public class Ui {
     println(" 2. Add a New Coach");
     println(" 3. Add a New Team");
     println(" q. Return to Updates Menu");
+    println(" x. To exit program");
   }
 
   /**
@@ -390,6 +429,7 @@ public class Ui {
     println(" 2. Delete a Specific Coach");
     println(" 3. Delete a Specific Team");
     println(" q. Return to Updates Menu");
+    println(" x. To exit program");
   }
 
   /**
@@ -411,7 +451,7 @@ public class Ui {
   /**
    * pauses menu and waits for user to press enter
    */
-  private void pauseMenu() { // TODO: fix bug where enter must be pressed twice if console looses focus
+  private void pauseMenu() { // TODO: fix bug where enter must be pressed twice if console window looses focus
     print("Press 'enter' to go back");
     readLine();
   }
