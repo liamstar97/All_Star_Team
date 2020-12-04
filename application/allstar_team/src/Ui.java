@@ -122,15 +122,12 @@ public class Ui {
           println(" Not a valid option ");
           break;
         case '1':
-          println("case 1");
           query.playerRank();
           break;
         case '2':
-          println("case 2");
           query.getTeamWins();
           break;
         case '3':
-          println("case 3");
           query.getParticipation();
           break;
         case 'q':
