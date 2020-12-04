@@ -1,3 +1,10 @@
+/*
+ * Name: Query.java
+ * Authors: Kyle White, Mathew Tkachuk, Liam Thompson
+ * Date: 12/3/2020
+ * --------------------------
+ * Description: This class contains query methods returning results to the console, some ask for user defined input.
+ */
 import java.sql.*;
 import java.io.*;
 import java.sql.Date;
@@ -12,8 +19,10 @@ public class Query {
   }
 
   public void listNominees() throws SQLException {
-    String[] strings = {"Center", "Guard", "Inside Receiver", "Quarterback", "Running Back", "Tackler"};
-    String query = "SELECT Name, PLAYER_Rank " +
+    String[] strings = {"Center", "Guard", "Wide Receiver", "Inside Receiver",
+        "Quarterback", "Running Back", "Tackler"};
+    String query = "" +
+        "SELECT Name, PLAYER_Rank " +
         "FROM PLAYERS JOIN ALLSTAR_NOMINEES AN on PLAYERS.SSN = AN.PLAYERS_SSN " +
         "WHERE Position = ? " +
         "ORDER BY PLAYER_Rank";
@@ -69,7 +78,8 @@ public class Query {
   }
 
   public void searchGameInfo() throws SQLException {
-    String queryWins = "SELECT Location, Date, Score, C.Name, AC.Name " +
+    String queryWins = "" +
+        "SELECT Location, Date, Score, C.Name, AC.Name " +
         "FROM ALLSTAR_GAME " +
         "JOIN CHAMPIONSHIP_TEAM CT on ALLSTAR_GAME.CHAMPIONSHIP_TEAMS_ID_WINNER = CT.ID " +
         "JOIN COACH C on ALLSTAR_GAME.COACH_SSN = C.SSN " +
@@ -78,7 +88,8 @@ public class Query {
         "ORDER BY Date DESC";
     PreparedStatement winStatement = conn.prepareStatement(queryWins);
 
-    String queryLosses = "SELECT Location, Date, Score, C.Name, AC.Name " +
+    String queryLosses = "" +
+        "SELECT Location, Date, Score, C.Name, AC.Name " +
         "FROM ALLSTAR_GAME " +
         "JOIN CHAMPIONSHIP_TEAM CT on ALLSTAR_GAME.CHAMPIONSHIP_TEAMS_ID_LOSER = CT.ID " +
         "JOIN COACH C on ALLSTAR_GAME.COACH_SSN = C.SSN " +
@@ -108,12 +119,14 @@ public class Query {
       String score = results.getString(3);
       String coach = results.getString(4);
       String assistantCoach = results.getString(5);
-      println("(" + date + ") " + location + ", Score: " + score + ", Coach: " + coach + ", Assistant Coach: " + assistantCoach);
+      println("(" + date + ") " + location +
+          ", Score: " + score + ", Coach: " + coach + ", Assistant Coach: " + assistantCoach);
     }
   }
 
   public void searchCoachInfo() throws SQLException {
-    String query = "SELECT Team_name " +
+    String query = "" +
+        "SELECT Team_name " +
         "FROM CHAMPIONSHIP_TEAM " +
         "JOIN COACH C on C.SSN = CHAMPIONSHIP_TEAM.COACH_SSN " +
         "WHERE C.Name = ? " +
@@ -129,7 +142,6 @@ public class Query {
       println("    " + team);
     }
   }
-
 
   /**
    * The insertPlayer method accepts user input for each of the 10 attributes
@@ -179,6 +191,8 @@ public class Query {
       p.setString(9, collegeClass);
 
       p.executeUpdate();
+
+      //Exception handling for invalid user input and database rejections
     } catch (InputMismatchException e) {
       System.out.println("Invalid input.");
       insertPlayer();
@@ -236,6 +250,8 @@ public class Query {
       p.setInt(9, semiFinals);
 
       p.executeUpdate();
+
+      //Exception handling for invalid user input and database rejections
     } catch (InputMismatchException e) {
       System.out.println("Invalid input");
       insertCoach();
@@ -275,7 +291,8 @@ public class Query {
           "Please enter the SSN of an existing coach who is not currently the coach of a team: \n"));
       p.setInt(3, coachSSN);
 
-      String stringAssCoach = readEntry("Please enter the SSN of an existing assistant coach who is not currently part of a team, enter q if no assistance coach: \n");
+      String stringAssCoach = readEntry("Please enter the SSN of an existing assistant coach who is " +
+          "not currently part of a team, enter q if no assistance coach: \n");
       if (!stringAssCoach.equals("q")) {
         int assCoachSSN = Integer.parseInt(stringAssCoach);
         p.setInt(4, assCoachSSN);
@@ -286,15 +303,7 @@ public class Query {
       String univ = readEntry("Please enter the university this team belongs to: \n");
       p.setString(5, univ);
 
-      Statement rankTest = conn.createStatement(); // TODO: can this be its own function?
-      int rank = 1;
-      String rankTestQuery = "" +
-          "SELECT Team_name " +
-          "FROM CHAMPIONSHIP_TEAM";
-      ResultSet results = rankTest.executeQuery(rankTestQuery);
-      while (results.next()) {
-        rank++;
-      }
+      int rank = rankCounter();
       p.setInt(6, rank);
 
       String stringWins = readEntry("Please enter the team's wins: \n");
@@ -310,6 +319,8 @@ public class Query {
       p.setInt(9, ties);
 
       p.executeUpdate();
+
+      //Exception handling for invalid user input and database rejections
     } catch (InputMismatchException e) {
       System.out.println("Invalid input");
       insertTeam();
@@ -375,6 +386,10 @@ public class Query {
     p.executeUpdate();
   }
 
+  /**Prints out the name and rank of the players who have been nominated as allstars
+   *
+   * @throws SQLException
+   */
   public void playerRank() throws SQLException {
     Statement getPlayerRank = conn.createStatement();
 
@@ -385,6 +400,7 @@ public class Query {
 
     ResultSet result = getPlayerRank.executeQuery(query);
 
+    //Loops through results and prints them out
     while (result.next()) {
       String name = result.getString(1);
       int rank = result.getInt(2);
@@ -393,6 +409,10 @@ public class Query {
     }
   }
 
+  /**Prints out all team names and their number of wins
+   *
+   * @throws SQLException
+   */
   public void getTeamWins() throws SQLException {
 
     Statement getTeamWins = conn.createStatement();
@@ -401,6 +421,7 @@ public class Query {
         "FROM CHAMPIONSHIP_TEAM";
     ResultSet result = getTeamWins.executeQuery(query);
 
+    //Loops through results and prints them out
     while (result.next()) {
       String teamName = result.getString(1);
       int wins = result.getInt(2);
@@ -409,13 +430,18 @@ public class Query {
     }
   }
 
+  /**Prints out all teams that have participated in an all-star game
+   *
+   * @throws SQLException
+   */
   public void getParticipation() throws SQLException {
     int count = 0;
 
     Statement getParticipation = conn.createStatement();
     String query = "" +
-        "SELECT Team_name " +
-        "FROM CHAMPIONSHIP_TEAM";
+        "SELECT DISTINCT Team_name " +
+        "FROM CHAMPIONSHIP_TEAM JOIN ALLSTAR_GAME " +
+        "ON CHAMPIONSHIP_TEAMS_ID_WINNER = ID OR CHAMPIONSHIP_TEAMS_ID_LOSER = ID";
     ResultSet results = getParticipation.executeQuery(query);
 
     while (results.next()) {
@@ -424,14 +450,27 @@ public class Query {
     println(count);
   }
 
+  /**Utility method for shorthand printing
+   *
+   * @param s
+   */
   private void print(Object s) {
     System.out.print(s);
   }
 
+  /**Utility method for shorthand printing
+   *
+   * @param s
+   */
   private void println(Object s) {
     System.out.println(s);
   }
 
+  /**Taken from provided code in worksheet09 of CS331
+   *
+   * @param prompt
+   * @return
+   */
   private String readEntry(String prompt) {
     try {
       StringBuffer buffer = new StringBuffer();
@@ -446,5 +485,23 @@ public class Query {
     } catch (IOException e) {
       return "";
     }
+  }
+
+  /**Helper function that counts the current number of teams in the database, used to find rank for new teams
+   *
+   * @return
+   * @throws SQLException
+   */
+  private int rankCounter() throws SQLException{
+    Statement rankTest = conn.createStatement(); // TODO: can this be its own function?
+    int rank = 1;
+    String rankTestQuery = "" +
+            "SELECT Team_name " +
+            "FROM CHAMPIONSHIP_TEAM";
+    ResultSet results = rankTest.executeQuery(rankTestQuery);
+    while (results.next()) {
+      rank++;
+    }
+    return rank;
   }
 }

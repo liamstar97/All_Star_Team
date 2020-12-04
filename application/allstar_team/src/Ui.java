@@ -1,3 +1,11 @@
+/*
+ * Name: Ui.java
+ * Authors: Kyle White, Mathew Tkachuk, Liam Thompson
+ * Date: 12/3/2020
+ * --------------------------
+ * Description: This class contains all Ui menus and their sub menus which calls query methods in Query.java printing
+ *              results to the console.
+ */
 import java.sql.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -5,8 +13,15 @@ import java.io.InputStreamReader;
 
 public class Ui {
 
+  /**
+   * global private Connection variable
+   */
   private final Connection CONNECTION;
 
+  /**
+   * Constructs a Ui Object
+   * @throws SQLException
+   */
   public Ui() throws SQLException {
     Connection conn = login();
     CONNECTION = conn;
@@ -14,19 +29,34 @@ public class Ui {
     mainMenu(conn, query);
   }
 
+  /**
+   * getter for Connection object
+   * @return connection
+   */
   public Connection getConnection() {
     return CONNECTION;
   }
 
-  private Connection login() throws SQLException { //TODO: change to user input before turning in, and demo
+  /**
+   * prompts user for a username and password to login to the database
+   * @return returns a connection
+   * @throws SQLException
+   */
+  private Connection login() throws SQLException {
     String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/" +
         "Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
-    String user, pass; //TODO: Create demo user and sara user
-    user = "javaApp"; //TODO: remove hardcoded credentials, and remove user from db
-    pass = "GiveUsAnAPlease!100%";
+    String user, pass;
+    user = readEntry("Enter Username: ");
+    pass = readEntry("Enter Password: ");
     return DriverManager.getConnection(url, user, pass);
   }
 
+  /**
+   * the main menu is the first menu displayed to the user containing three sub menus
+   * @param conn connection
+   * @param query query object
+   * @throws SQLException
+   */
   private void mainMenu(Connection conn, Query query) throws SQLException {
     boolean quit = false;
     do {
@@ -53,6 +83,11 @@ public class Ui {
     } while (!quit);
   }
 
+  /**
+   * displays browse and search menu containing two sub menus
+   * @param query query object
+   * @throws SQLException
+   */
   private void browseAndSearchMenu(Query query) throws SQLException {
     boolean quit = false;
     do {
@@ -74,6 +109,11 @@ public class Ui {
     } while (!quit);
   }
 
+  /**
+   * displays search menu containing three submenus
+   * @param query query object
+   * @throws SQLException
+   */
   private void searchMenu(Query query) throws SQLException {
     boolean quit = false;
     do {
@@ -101,35 +141,37 @@ public class Ui {
     } while (!quit);
   }
 
+  /**
+   * browse menu that displays a specified teams players and ranks!
+   * @param query query object
+   * @throws SQLException
+   */
   private void browseMenu(Query query) throws SQLException  {
     printBrowseMenu();
     query.listNominees();
     pauseMenu();
   }
 
-  private void pauseMenu() { // TODO: fix bug where enter must be pressed twice if console looses focus
-    print("Press 'enter' to go back");
-    readLine();
-  }
-
+  /**
+   * statsMenu has switch case that takes in user's input using getOption() then calls the corresponding query
+   * @param query query object
+   * @throws SQLException
+   */
   private void statsMenu(Query query) throws SQLException {
     boolean quit = false;
     printStatsMenu();
     do{
       switch (getOption()) {
         default:
-          println(" Not a valid option ");
+          println("Not a valid option\n");
           break;
         case '1':
-          println("case 1");
           query.playerRank();
           break;
         case '2':
-          println("case 2");
           query.getTeamWins();
           break;
         case '3':
-          println("case 3");
           query.getParticipation();
           break;
         case 'q':
@@ -172,7 +214,7 @@ public class Ui {
    * @param query The query object stored as a field in the UI class,
    * which houses all of the query-based functionality of the program.
    */
-
+  
   private void updatesMenu(Query query) {
     boolean quit = false;
     do {
@@ -266,6 +308,9 @@ public class Ui {
     } while (!quit) ;
   }
 
+  /**
+   * header for main menu
+   */
   private void printMainMenu() {
     println("***********************************************************");
     println("                       ***********                         ");
@@ -278,6 +323,9 @@ public class Ui {
     println("                         q. Quit");
   }
 
+  /**
+   * header for stats menu
+   */
   private void printStatsMenu() {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
@@ -288,6 +336,9 @@ public class Ui {
     println("q. Quit");
   }
 
+  /**
+   * header for browse and search menu
+   */
   private void printBrowseAndSearchMenu() {
     println("***********************************************************");
     println("                Browse & Search the Database               ");
@@ -297,13 +348,18 @@ public class Ui {
     println("                        q. Back");
   }
 
+  /**
+   * header for browse menu
+   */
   private void printBrowseMenu() {
     println("***********************************************************");
     println("                       Browse Nominees                     ");
     println("***********************************************************");
-    println("                          q. Back ");
   }
 
+  /**
+   * header for search menu
+   */
   private void printSearchMenu() {
     println("***********************************************************");
     println("                           Search                          ");
@@ -361,10 +417,81 @@ public class Ui {
     println("q. Return to Updates Menu");
   }
 
+  /**
+   * gets user input for menu options
+   * @return user input option
+   */
+  private char getOption() {
+    print("Type in your option: ");
+    System.out.flush();
+    String userInput = readLine();
+    println("");
+    char option = '0';
+    if (userInput.length() == 1) {
+      option = userInput.toLowerCase().charAt(0);
+    }
+    return option;
+  }
+
+  /**
+   * pauses menu and waits for user to press enter
+   */
+  private void pauseMenu() { // TODO: fix bug where enter must be pressed twice if console looses focus
+    print("Press 'enter' to go back");
+    readLine();
+  }
+
+  /**
+   * reads entire line of user input and returns it
+   * @return string of user input
+   */
+  private String readLine() {
+    InputStreamReader isr = new InputStreamReader(System.in);
+    BufferedReader br = new BufferedReader(isr, 1);
+    String line = "";
+    try {
+      line = br.readLine();
+    } catch (IOException e) {
+      println("Error in SimpleIO.readLine: " +
+          "IOException was thrown");
+      System.exit(1);
+    }
+    return line;
+  }
+
+  /**
+   * reads user input and returns it
+   * @param prompt takes a string as a prompt for user input
+   * @return string of user input
+   */
+  private String readEntry(String prompt) {
+    try {
+      StringBuffer buffer = new StringBuffer();
+      print(prompt);
+      System.out.flush();
+      int c = System.in.read();
+      while (c != '\n' && c != -1) {
+        buffer.append((char) c);
+        c = System.in.read();
+      }
+      return buffer.toString().trim();
+    } catch (IOException e) {
+      return "";
+    }
+  }
+
+  /**
+   * Utility method for shorthand printing
+   * @param s some object to print
+   */
   private void print(Object s) {
     System.out.print(s);
   }
 
+  /**
+   * Utility method for shorthand printing
+   * @param s some object to print
+   */
   private void println(Object s) {
     System.out.println(s);
   }
