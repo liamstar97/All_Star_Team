@@ -589,7 +589,7 @@ public class Query {
     univCheck.setInt(1, id);
 
     ResultSet result = univCheck.executeQuery();
-
+    result.next();
     return result.getString(1);
   }
 
@@ -608,7 +608,7 @@ public class Query {
     univCheck.setInt(1, ssn);
 
     ResultSet result = univCheck.executeQuery();
-
+    result.next();
     return result.getString(1);
   }
 
