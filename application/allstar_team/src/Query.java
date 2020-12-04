@@ -12,8 +12,10 @@ public class Query {
   }
 
   public void listNominees() throws SQLException {
-    String[] strings = {"Center", "Guard", "Inside Receiver", "Quarterback", "Running Back", "Tackler"};
-    String query = "SELECT Name, PLAYER_Rank " +
+    String[] strings = {"Center", "Guard", "Wide Receiver", "Inside Receiver",
+        "Quarterback", "Running Back", "Tackler"};
+    String query = "" +
+        "SELECT Name, PLAYER_Rank " +
         "FROM PLAYERS JOIN ALLSTAR_NOMINEES AN on PLAYERS.SSN = AN.PLAYERS_SSN " +
         "WHERE Position = ? " +
         "ORDER BY PLAYER_Rank";
@@ -69,7 +71,8 @@ public class Query {
   }
 
   public void searchGameInfo() throws SQLException {
-    String queryWins = "SELECT Location, Date, Score, C.Name, AC.Name " +
+    String queryWins = "" +
+        "SELECT Location, Date, Score, C.Name, AC.Name " +
         "FROM ALLSTAR_GAME " +
         "JOIN CHAMPIONSHIP_TEAM CT on ALLSTAR_GAME.CHAMPIONSHIP_TEAMS_ID_WINNER = CT.ID " +
         "JOIN COACH C on ALLSTAR_GAME.COACH_SSN = C.SSN " +
@@ -78,7 +81,8 @@ public class Query {
         "ORDER BY Date DESC";
     PreparedStatement winStatement = conn.prepareStatement(queryWins);
 
-    String queryLosses = "SELECT Location, Date, Score, C.Name, AC.Name " +
+    String queryLosses = "" +
+        "SELECT Location, Date, Score, C.Name, AC.Name " +
         "FROM ALLSTAR_GAME " +
         "JOIN CHAMPIONSHIP_TEAM CT on ALLSTAR_GAME.CHAMPIONSHIP_TEAMS_ID_LOSER = CT.ID " +
         "JOIN COACH C on ALLSTAR_GAME.COACH_SSN = C.SSN " +
@@ -113,7 +117,8 @@ public class Query {
   }
 
   public void searchCoachInfo() throws SQLException {
-    String query = "SELECT Team_name " +
+    String query = "" +
+        "SELECT Team_name " +
         "FROM CHAMPIONSHIP_TEAM " +
         "JOIN COACH C on C.SSN = CHAMPIONSHIP_TEAM.COACH_SSN " +
         "WHERE C.Name = ? " +

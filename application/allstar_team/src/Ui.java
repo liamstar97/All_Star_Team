@@ -19,12 +19,12 @@ public class Ui {
     return CONNECTION;
   }
 
-  private Connection login() throws SQLException { //TODO: change to user input before turning in, and demo
+  private Connection login() throws SQLException {
     String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/" +
         "Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
-    String user, pass; //TODO: Create demo user and sara user
-    user = "javaApp"; //TODO: remove hardcoded credentials, and remove user from db
-    pass = "GiveUsAnAPlease!100%";
+    String user, pass;
+    user = readEntry("Enter Username: ");
+    pass = readEntry("Enter Password: ");
     return DriverManager.getConnection(url, user, pass);
   }
 
@@ -136,32 +136,6 @@ public class Ui {
           break;
       }
     } while (!quit);
-  }
-
-  private char getOption() {
-    print("Type in your option: ");
-    System.out.flush();
-    String userInput = readLine();
-    println("");
-    char option = '0';
-    if (userInput.length() == 1) {
-      option = userInput.toLowerCase().charAt(0);
-    }
-    return option;
-  }
-
-  private String readLine() {
-    InputStreamReader isr = new InputStreamReader(System.in);
-    BufferedReader br = new BufferedReader(isr, 1);
-    String line = "";
-    try {
-      line = br.readLine();
-    } catch (IOException e) {
-      println("Error in SimpleIO.readLine: " +
-          "IOException was thrown");
-      System.exit(1);
-    }
-    return line;
   }
 
   private void updatesMenu(Query query) {
@@ -321,7 +295,48 @@ public class Ui {
     println("q. Return to Updates Menu");
   }
 
-  /**Utility method for shorthand printing**/
+  private char getOption() {
+    print("Type in your option: ");
+    System.out.flush();
+    String userInput = readLine();
+    println("");
+    char option = '0';
+    if (userInput.length() == 1) {
+      option = userInput.toLowerCase().charAt(0);
+    }
+    return option;
+  }
+
+  private String readLine() {
+    InputStreamReader isr = new InputStreamReader(System.in);
+    BufferedReader br = new BufferedReader(isr, 1);
+    String line = "";
+    try {
+      line = br.readLine();
+    } catch (IOException e) {
+      println("Error in SimpleIO.readLine: " +
+          "IOException was thrown");
+      System.exit(1);
+    }
+    return line;
+  }
+
+  private String readEntry(String prompt) {
+    try {
+      StringBuffer buffer = new StringBuffer();
+      print(prompt);
+      System.out.flush();
+      int c = System.in.read();
+      while (c != '\n' && c != -1) {
+        buffer.append((char) c);
+        c = System.in.read();
+      }
+      return buffer.toString().trim();
+    } catch (IOException e) {
+      return "";
+    }
+  }
+
   private void print(Object s) {
     System.out.print(s);
   }
