@@ -181,31 +181,6 @@ public class Ui {
     } while (!quit);
   }
 
-  private char getOption() {
-    print("Type in your option: ");
-    System.out.flush();
-    String userInput = readLine();
-    println("");
-    char option = '0';
-    if (userInput.length() == 1) {
-      option = userInput.toLowerCase().charAt(0);
-    }
-    return option;
-  }
-
-  private String readLine() {
-    InputStreamReader isr = new InputStreamReader(System.in);
-    BufferedReader br = new BufferedReader(isr, 1);
-    String line = "";
-    try {
-      line = br.readLine();
-    } catch (IOException e) {
-      println("Error in SimpleIO.readLine: " +
-          "IOException was thrown");
-      System.exit(1);
-    }
-    return line;
-  }
 
   /**
    * The updatesMenu uses a switch-case to handle user input for the 
