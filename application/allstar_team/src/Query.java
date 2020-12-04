@@ -173,11 +173,13 @@ public class Query {
 
       p.executeUpdate();
     } catch (InputMismatchException e) {
-      System.out.println("Invalid input");
+      System.out.println("Invalid input.");
       insertPlayer();
     } catch (SQLException s) {
       System.out.println(s.getMessage());
       insertPlayer();
+    } catch (NumberFormatException n) {
+      println("Invlaid input.");
     }
   }
 
@@ -225,6 +227,8 @@ public class Query {
     } catch (SQLException s) {
       System.out.println(s.getMessage());
       insertCoach();
+    } catch (NumberFormatException n) {
+      println("Invlaid input.");
     }
   }
 
@@ -287,6 +291,8 @@ public class Query {
     } catch (SQLException s) {
       System.out.println(s.getMessage());
       insertTeam();
+    } catch (NumberFormatException n) {
+      println("Invlaid input.");
     }
   }
 
