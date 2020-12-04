@@ -487,13 +487,15 @@ public class Query {
     }
   }
 
-  /**Helper function that counts the current number of teams in the database, used to find rank for new teams
-   *
+  /**
+   * Helper function that counts the current number of teams in the database, which sets
+   * the new team to last place.
    * @return
    * @throws SQLException
    */
+
   private int rankCounter() throws SQLException{
-    Statement rankTest = conn.createStatement(); // TODO: can this be its own function?
+    Statement rankTest = conn.createStatement();
     int rank = 1;
     String rankTestQuery = "" +
             "SELECT Team_name " +
