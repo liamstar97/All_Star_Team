@@ -143,8 +143,11 @@ public class Query {
     }
   }
 
-
-
+  /**insertPlayer() prompts user to enter in details about the player they wish to add, then tries to add this player
+   *  to the database via a prepared statement
+   *
+   * @throws SQLException
+   */
   public void insertPlayer() throws SQLException {
     try {
       String query = "" +
@@ -185,6 +188,8 @@ public class Query {
       p.setString(9, collegeClass);
 
       p.executeUpdate();
+
+      //Exception handling for invalid user input and database rejections
     } catch (InputMismatchException e) {
       System.out.println("Invalid input.");
       insertPlayer();
@@ -196,6 +201,11 @@ public class Query {
     }
   }
 
+  /**insertCaoch() propmts user to enter in details about the coach they'd like to add, and packs them into a prepared
+   * statement which is sent to the database
+   *
+   * @throws SQLException
+   */
   public void insertCoach() throws SQLException {
     try {
       String query = "" +
@@ -234,6 +244,8 @@ public class Query {
       p.setInt(9, semiFinals);
 
       p.executeUpdate();
+
+      //Exception handling for invalid user input and database rejections
     } catch (InputMismatchException e) {
       System.out.println("Invalid input");
       insertCoach();
@@ -245,6 +257,11 @@ public class Query {
     }
   }
 
+  /**insertTeam() prompts the user to enter in details of a new team, which is packed into a prepared statement, and
+   * then sent to the database
+   *
+   * @throws SQLException
+   */
   public void insertTeam() throws SQLException {
     try {
       String query = "" +
@@ -275,15 +292,7 @@ public class Query {
       String univ = readEntry("Please enter the university this team belongs to: \n");
       p.setString(5, univ);
 
-      Statement rankTest = conn.createStatement(); // TODO: can this be its own function?
-      int rank = 1;
-      String rankTestQuery = "" +
-          "SELECT Team_name " +
-          "FROM CHAMPIONSHIP_TEAM";
-      ResultSet results = rankTest.executeQuery(rankTestQuery);
-      while (results.next()) {
-        rank++;
-      }
+      int rank = rankCounter();
       p.setInt(6, rank);
 
       String stringWins = readEntry("Please enter the team's wins: \n");
@@ -299,6 +308,8 @@ public class Query {
       p.setInt(9, ties);
 
       p.executeUpdate();
+
+      //Exception handling for invalid user input and database rejections
     } catch (InputMismatchException e) {
       System.out.println("Invalid input");
       insertTeam();
@@ -310,6 +321,11 @@ public class Query {
     }
   }
 
+  /**deletePlayer() prompts the user to enter an SSN of the target player, then uses that in a prepared statement to
+   * delete the player with this SSN in the database
+   *
+   * @throws SQLException
+   */
   public void deletePlayer() throws SQLException {
     String query = "" +
         "DELETE FROM PLAYERS " +
@@ -321,6 +337,11 @@ public class Query {
     p.executeUpdate();
   }
 
+  /**Prompts user to enter in the SSN of the target coach, then removes the coach if they are not currently coaching a
+   * team
+   *
+   * @throws SQLException
+   */
   public void deleteCoach() throws SQLException {
     String query = "" +
         "DELETE FROM COACH " +
@@ -332,6 +353,11 @@ public class Query {
     p.executeUpdate();
   }
 
+  /**Prompts user to enter the team id of the target team, then the team is deleted from the database using a
+   * prepared statement
+   *
+    * @throws SQLException
+   */
   public void deleteTeam() throws SQLException {
     String query = "" +
         "DELETE FROM CHAMPIONSHIP_TEAM " +
@@ -442,5 +468,23 @@ public class Query {
     } catch (IOException e) {
       return "";
     }
+  }
+
+  /**Helper function that counts the current number of teams in the database, used to find rank for new teams
+   *
+   * @return
+   * @throws SQLException
+   */
+  private int rankCounter() throws SQLException{
+    Statement rankTest = conn.createStatement(); // TODO: can this be its own function?
+    int rank = 1;
+    String rankTestQuery = "" +
+            "SELECT Team_name " +
+            "FROM CHAMPIONSHIP_TEAM";
+    ResultSet results = rankTest.executeQuery(rankTestQuery);
+    while (results.next()) {
+      rank++;
+    }
+    return rank;
   }
 }
