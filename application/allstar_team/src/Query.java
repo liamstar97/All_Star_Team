@@ -518,4 +518,18 @@ public class Query {
 
     return result.getString(1);
   }
+
+  private String coachUnivCheck(int ssn) throws SQLException{
+    String query = "SELECT University " +
+            "FROM COACH " +
+            "WHERE SSN = ?";
+
+    PreparedStatement univCheck = conn.prepareStatement(query);
+    univCheck.setInt(1, ssn);
+
+    ResultSet result = univCheck.executeQuery();
+
+    return result.getString(1);
+  }
+
 }
