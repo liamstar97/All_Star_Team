@@ -12,15 +12,28 @@ import java.util.InputMismatchException;
 
 public class Query {
 
-  private Connection conn;
+  /**
+   * private global connection
+   */
+  private final Connection conn;
 
+  /**
+   * constructs query object and sets this connection equal to passes in connection
+   * @param conn Connection object
+   */
   public Query(Connection conn) {
     this.conn = conn;
   }
 
+  /**
+   * lists all-star nominees, their ranks, and positions from user defined team
+   * @throws SQLException
+   */
   public void listNominees() throws SQLException {
+    // array of positions
     String[] strings = {"Center", "Guard", "Wide Receiver", "Inside Receiver",
         "Quarterback", "Running Back", "Tackler"};
+    // SQL query
     String query = "" +
         "SELECT Name, PLAYER_Rank " +
         "FROM PLAYERS JOIN ALLSTAR_NOMINEES AN on PLAYERS.SSN = AN.PLAYERS_SSN " +
@@ -28,21 +41,27 @@ public class Query {
         "ORDER BY PLAYER_Rank";
     PreparedStatement statement = conn.prepareStatement(query);
     println("                   ---------------------");
+    // print resulting nominees for each position
     for (String s : strings) {
       statement.setString(1, s.toLowerCase());
       ResultSet results = statement.executeQuery();
       // print results
-      if (results.next()) {
+      if (results.next()) { // print nominees or skip position if no results exist for that position
         println(s + "s:");
         printNomineeResults(results);
         while (results.next()) {
-        printNomineeResults(results);
+          printNomineeResults(results);
         }
       }
-      statement.clearParameters();
+      statement.clearParameters(); // reset parameters for next query
     }
   }
 
+  /**
+   * prints formatted all-star nominee query results
+   * @param results passed in query resultSet
+   * @throws SQLException
+   */
   private void printNomineeResults(ResultSet results) throws SQLException {
     String name;
     int playerRank;
@@ -51,7 +70,12 @@ public class Query {
     println("    " + name + ", Rank: " + playerRank );
   }
 
+  /**
+   * lists player names, coach name, and team rank of a user defined team
+   * @throws SQLException
+   */
   public void searchTeamInfo() throws SQLException {
+    // SQL query
     String query = "" +
         "SELECT P.Name, C.Name, Team_rank " +
         "FROM CHAMPIONSHIP_TEAM " +
@@ -62,10 +86,22 @@ public class Query {
     PreparedStatement statement = conn.prepareStatement(query);
     String teamName = readEntry("Enter team name: ");
     statement.setString(1, teamName);
+    // get query results, and print them
     ResultSet results = statement.executeQuery();
-    results.next();
+    if (results.next()) { // if there is a result print results
+      printTeamInfo(results);
+    } else { // else there are no results to print
+      println("there are no results for " + teamName + " or that team does not exits!");
+    }
+  }
+
+  /**
+   * format and print team info results
+   * @param results resultSet
+   * @throws SQLException
+   */
+  private void printTeamInfo(ResultSet results) throws SQLException{
     println("                   ---------------------");
-    println(teamName + ":");
     println("Coach: " + results.getString(2));
     println("Rank: " + results.getInt(3));
     println("Players:");
@@ -77,7 +113,12 @@ public class Query {
     }
   }
 
+  /**
+   * lists won and lost all-star games date, location, score, coach, and assistant coach for a user defined team
+   * @throws SQLException
+   */
   public void searchGameInfo() throws SQLException {
+    // SQL query for team wins
     String queryWins = "" +
         "SELECT Location, Date, Score, C.Name, AC.Name " +
         "FROM ALLSTAR_GAME " +
@@ -87,7 +128,7 @@ public class Query {
         "WHERE CT.Team_name = ? " +
         "ORDER BY Date DESC";
     PreparedStatement winStatement = conn.prepareStatement(queryWins);
-
+    // SQL query for team losses
     String queryLosses = "" +
         "SELECT Location, Date, Score, C.Name, AC.Name " +
         "FROM ALLSTAR_GAME " +
@@ -97,23 +138,38 @@ public class Query {
         "WHERE CT.Team_name = ? " +
         "ORDER BY Date DESC";
     PreparedStatement lossStatement = conn.prepareStatement(queryLosses);
-
+    // set query parameters with user defined team
     String teamName = readEntry("Enter team name: ");
     winStatement.setString(1, teamName);
     lossStatement.setString(1, teamName);
-
+    // get query results
     ResultSet winResults = winStatement.executeQuery();
     ResultSet lossResults = lossStatement.executeQuery();
-
+    // print query results
     println("                   ---------------------");
-    println(teamName + "Wins" + ":");
-    printGameInfo(winResults);
-    println(teamName + "Losses: ");
-    printGameInfo(lossResults);
+    boolean hasResults = false;
+    if (winResults.next()) { // prints wins if any
+      hasResults = true;
+      println(teamName + " Wins" + ":");
+      printGameInfo(winResults);
+    }
+    if (lossResults.next()) { // prints losses if any
+      hasResults = true;
+      println(teamName + " Losses: ");
+      printGameInfo(lossResults);
+    }
+    if (!hasResults) { // if no results exist
+      println("There are no recorded wins or losses for " + teamName + ".");
+    }
   }
 
+  /**
+   * format and print game info for searchGameInfo query results
+   * @param results resultSet
+   * @throws SQLException
+   */
   private void printGameInfo(ResultSet results) throws SQLException {
-    while (results.next()) {
+    do {
       String location = results.getString(1);
       Date date = results.getDate(2);
       String score = results.getString(3);
@@ -121,10 +177,15 @@ public class Query {
       String assistantCoach = results.getString(5);
       println("(" + date + ") " + location +
           ", Score: " + score + ", Coach: " + coach + ", Assistant Coach: " + assistantCoach);
-    }
+    } while (results.next());
   }
 
+  /**
+   * lists teams a user defined coach has coached
+   * @throws SQLException
+   */
   public void searchCoachInfo() throws SQLException {
+    // SQL query
     String query = "" +
         "SELECT Team_name " +
         "FROM CHAMPIONSHIP_TEAM " +
@@ -132,9 +193,12 @@ public class Query {
         "WHERE C.Name = ? " +
         "ORDER BY Team_name";
     PreparedStatement statement = conn.prepareStatement(query);
+    // set query parameters for user defined coach
     String coach = readEntry("Enter coach name: ");
     statement.setString(1, coach);
+    // get query results
     ResultSet results = statement.executeQuery();
+    // format and print query results
     println("                   ---------------------");
     println("Teams:");
     while (results.next()) {
@@ -143,6 +207,7 @@ public class Query {
     }
   }
 
+
   /**
    * The insertPlayer method accepts user input for each of the 10 attributes
    * of a player in the Allstar_Team database, creates a PreparedStatement
@@ -150,7 +215,6 @@ public class Query {
    * method to initiate the query within the database.
    * @throws SQLException
    */
-
   public void insertPlayer() throws SQLException {
     try {
       String query = "" +
@@ -389,8 +453,8 @@ public class Query {
     p.executeUpdate();
   }
 
-  /**Prints out the name and rank of the players who have been nominated as allstars
-   *
+  /**
+   * Prints out the name and rank of the players who have been nominated as allstars
    * @throws SQLException
    */
   public void playerRank() throws SQLException {
@@ -412,8 +476,8 @@ public class Query {
     }
   }
 
-  /**Prints out all team names and their number of wins
-   *
+  /**
+   * Prints out all team names and their number of wins
    * @throws SQLException
    */
   public void getTeamWins() throws SQLException {
@@ -433,8 +497,8 @@ public class Query {
     }
   }
 
-  /**Prints out all teams that have participated in an all-star game
-   *
+  /**
+   * Prints out all teams that have participated in an all-star game
    * @throws SQLException
    */
   public void getParticipation() throws SQLException {
@@ -453,24 +517,24 @@ public class Query {
     println(count);
   }
 
-  /**Utility method for shorthand printing
-   *
+  /**
+   * Utility method for shorthand printing
    * @param s
    */
   private void print(Object s) {
     System.out.print(s);
   }
 
-  /**Utility method for shorthand printing
-   *
+  /**
+   * Utility method for shorthand printing
    * @param s
    */
   private void println(Object s) {
     System.out.println(s);
   }
 
-  /**Taken from provided code in worksheet09 of CS331
-   *
+  /**
+   * Taken from provided code in worksheet09 of CS331
    * @param prompt
    * @return
    */

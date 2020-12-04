@@ -441,7 +441,7 @@ public class Ui {
   /**
    * pauses menu and waits for user to press enter
    */
-  private void pauseMenu() { // TODO: fix bug where enter must be pressed twice if console looses focus
+  private void pauseMenu() { // TODO: fix bug where enter must be pressed twice if console window looses focus
     print("Press 'enter' to go back");
     readLine();
   }
