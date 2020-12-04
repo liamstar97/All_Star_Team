@@ -375,12 +375,18 @@ public class Ui {
     }
   }
 
-  /**Utility method for shorthand printing**/
+  /**
+   * Utility method for shorthand printing
+   * @param s some object to print
+   */
   private void print(Object s) {
     System.out.print(s);
   }
 
-  /**Utility method for shorthand printing**/
+  /**
+   * Utility method for shorthand printing
+   * @param s some object to print
+   */
   private void println(Object s) {
     System.out.println(s);
   }

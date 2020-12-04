@@ -334,7 +334,10 @@ public class Query {
     p.executeUpdate();
   }
 
-  /**Prints out the name and rank of the players who have been nominated as allstars**/
+  /**Prints out the name and rank of the players who have been nominated as allstars
+   *
+   * @throws SQLException
+   */
   public void playerRank() throws SQLException {
     Statement getPlayerRank = conn.createStatement();
 
@@ -354,7 +357,10 @@ public class Query {
     }
   }
 
-  /**Prints out all team names and their number of wins**/
+  /**Prints out all team names and their number of wins
+   *
+   * @throws SQLException
+   */
   public void getTeamWins() throws SQLException {
 
     Statement getTeamWins = conn.createStatement();
@@ -372,7 +378,10 @@ public class Query {
     }
   }
 
-  /**Prints out all teams that have participated in an all-star game**/
+  /**Prints out all teams that have participated in an all-star game
+   *
+   * @throws SQLException
+   */
   public void getParticipation() throws SQLException {
     int count = 0;
 
@@ -389,17 +398,27 @@ public class Query {
     println(count);
   }
 
-  /**Utility method for shorthand printing***/
+  /**Utility method for shorthand printing
+   *
+   * @param s
+   */
   private void print(Object s) {
     System.out.print(s);
   }
 
-  /**Utility method for shorthand printing**/
+  /**Utility method for shorthand printing
+   *
+   * @param s
+   */
   private void println(Object s) {
     System.out.println(s);
   }
 
-  /**Taken from provided code in worksheet09 of CS331**/
+  /**Taken from provided code in worksheet09 of CS331
+   *
+   * @param prompt
+   * @return
+   */
   private String readEntry(String prompt) {
     try {
       StringBuffer buffer = new StringBuffer();
