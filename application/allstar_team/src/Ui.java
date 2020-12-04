@@ -113,7 +113,10 @@ public class Ui {
     readLine();
   }
 
-  /**statsMenu has switch case that takes in user's input using getOption() then calls the corresponding query**/
+  /**statsMenu has switch case that takes in user's input using getOption() then calls the corresponding query
+   * @param query
+   * @throws SQLException
+   */
   private void statsMenu(Query query) throws SQLException {
     boolean quit = false;
     printStatsMenu();
