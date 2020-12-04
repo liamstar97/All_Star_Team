@@ -362,8 +362,9 @@ public class Query {
 
     Statement getParticipation = conn.createStatement();
     String query = "" +
-        "SELECT Team_name " +
-        "FROM CHAMPIONSHIP_TEAM";
+        "SELECT DISTINCT Team_name " +
+        "FROM CHAMPIONSHIP_TEAM JOIN ALLSTAR_GAME " +
+        "ON CHAMPIONSHIP_TEAMS_ID_WINNER = ID OR CHAMPIONSHIP_TEAMS_ID_LOSER = ID";
     ResultSet results = getParticipation.executeQuery(query);
 
     while (results.next()) {
