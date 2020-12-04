@@ -184,8 +184,10 @@ public class Query {
       String position = readEntry("Enter the player's Position: \n");
       p.setString(6, position);
 
-      String univ = readEntry("Enter the player's University: \n");
-      p.setString(7, univ);
+//      String univ = readEntry("Enter the player's University: \n");
+//      p.setString(7, univ);
+
+      p.setString(7,playerUnivCheck(teamID));
 
       String collegeClass = readEntry("Enter the player's Class: \n");
       p.setString(9, collegeClass);
@@ -300,8 +302,9 @@ public class Query {
         p.setNull(4, Types.INTEGER);
       }
 
-      String univ = readEntry("Please enter the university this team belongs to: \n");
-      p.setString(5, univ);
+//      String univ = readEntry("Please enter the university this team belongs to: \n");
+//      p.setString(5, univ);
+      p.setString(5,coachUnivCheck(coachSSN));
 
       int rank = rankCounter();
       p.setInt(6, rank);
