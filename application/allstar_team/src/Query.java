@@ -506,4 +506,18 @@ public class Query {
     }
     return rank;
   }
+
+  private String playerUnivCheck(int id) throws SQLException{
+
+    String query = "SELECT University " +
+            "FROM CHAMPIONSHIP_TEAM " +
+            "WHERE ID = ?";
+
+    PreparedStatement univCheck = conn.prepareStatement(query);
+    univCheck.setInt(1, id);
+
+    ResultSet result = univCheck.executeQuery();
+
+    return result.getString(1);
+  }
 }
