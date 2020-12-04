@@ -493,7 +493,6 @@ public class Query {
    * @return
    * @throws SQLException
    */
-
   private int rankCounter() throws SQLException{
     Statement rankTest = conn.createStatement();
     int rank = 1;
@@ -507,6 +506,12 @@ public class Query {
     return rank;
   }
 
+  /**
+   * Helper function that finds the university for a particular team
+   * @param id
+   * @return
+   * @throws SQLException
+   */
   private String playerUnivCheck(int id) throws SQLException{
 
     String query = "SELECT University " +
@@ -521,6 +526,12 @@ public class Query {
     return result.getString(1);
   }
 
+  /**
+   * Helper function that finds the university tied to a particular coach
+   * @param ssn
+   * @return
+   * @throws SQLException
+   */
   private String coachUnivCheck(int ssn) throws SQLException{
     String query = "SELECT University " +
             "FROM COACH " +
