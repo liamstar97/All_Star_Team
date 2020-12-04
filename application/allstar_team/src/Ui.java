@@ -2,7 +2,6 @@ import java.sql.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 public class Ui {
 
@@ -166,6 +165,14 @@ public class Ui {
     return line;
   }
 
+  /**
+   * The updatesMenu uses a switch-case to handle user input for the 
+   * selection of either insertion or deletion methods to update the
+   * database.
+   * @param query The query object stored as a field in the UI class,
+   * which houses all of the query-based functionality of the program.
+   */
+
   private void updatesMenu(Query query) {
     boolean quit = false;
     do {
@@ -186,6 +193,14 @@ public class Ui {
       }
     } while (!quit);
   }
+
+  /**
+   * The insertMenu uses a switch-case to handle user input for the 
+   * selection of the three permissible insert queries: insert player,
+   * coach, or team.
+   * @param query The query object stored as a field in the UI class,
+   * which houses all of the query-based functionality of the program.
+   */
 
   private void insertMenu(Query query) {
     boolean quit = false;
@@ -214,6 +229,14 @@ public class Ui {
       }
     } while (!quit);
   }
+
+  /**
+   * The deleteMenu uses a switch-case to handle user input for the 
+   * selection of the three permissible delete queries: delete player,
+   * coach, or team.
+   * @param query The query object stored as a field in the UI class,
+   * which houses all of the query-based functionality of the program.
+   */
 
   private void deleteMenu(Query query) {
     boolean quit = false;
@@ -250,8 +273,8 @@ public class Ui {
     println("                       ***********                         ");
     println("***********************************************************");
     println("             1. Search & Browse the Database");
-    println("               2. Statistics & Data Mining");
-    println("                        3. Updates");
+    println("             2. Statistics & Data Mining");
+    println("             3. Updates");
     println("                         q. Quit");
   }
 
@@ -259,9 +282,9 @@ public class Ui {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
     println("***********************************************************");
-    println("1. Score");
-    println("2. Wins per team");
-    println("3. Championship participation");
+    println("              1. Score");
+    println("              2. Wins per team");
+    println("              3. Championship participation");
     println("q. Quit");
   }
 
@@ -269,9 +292,9 @@ public class Ui {
     println("***********************************************************");
     println("                Browse & Search the Database               ");
     println("***********************************************************");
-    println("                    1. Browse Nominees");
-    println("                    2. Search Nominees");
-    println("                         q. Back");
+    println("                   1. Browse Nominees");
+    println("                   2. Search Nominees");
+    println("                        q. Back");
   }
 
   private void printBrowseMenu() {
@@ -291,6 +314,11 @@ public class Ui {
     println("                         q. Back");
   }
 
+  /**
+   * The printUpdatesMenu is a helper function that is called to print menu
+   * information when updating information in the database.
+   */
+
   private void printUpdatesMenu() {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
@@ -300,6 +328,11 @@ public class Ui {
     println("2. Delete Information");
     println("q. Return to Main Menu");
   }
+
+  /**
+   * The printInsertMenu is a helper function that is called to print
+   * menu information when inserting information in the database.
+   */
 
   private void printInsertMenu() {
     println("***********************************************************");
@@ -311,6 +344,11 @@ public class Ui {
     println("3. Add a New Team");
     println("q. Return to Updates Menu");
   }
+
+  /**
+   * The printDeleteMenu is a helper function that is called to print
+   * menu information when deleting information in the database.
+   */
 
   private void printDeleteMenu() {
     println("***********************************************************");

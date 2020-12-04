@@ -131,6 +131,13 @@ public class Query {
   }
 
 
+  /**
+   * The insertPlayer method accepts user input for each of the 10 attributes
+   * of a player in the Allstar_Team database, creates a PreparedStatement
+   * object with each parameter, and uses the PreparedStatement executeUpdate
+   * method to initiate the query within the database.
+   * @throws SQLException
+   */
 
   public void insertPlayer() throws SQLException {
     try {
@@ -183,6 +190,14 @@ public class Query {
     }
   }
 
+  /**
+   * The insertCoach method accepts user input for each of the 9 attributes
+   * of a coach in the Allstar_Team database, creates a PreparedStatement
+   * object with each parameter, and uses the PreparedStatement executeUpdate
+   * method to initiate the query within the database.
+   * @throws SQLException
+   */
+
   public void insertCoach() throws SQLException {
     try {
       String query = "" +
@@ -231,6 +246,16 @@ public class Query {
       println("Invlaid input.");
     }
   }
+
+  /**
+   * The insertTeam method accepts user input for each of the 9 attributes
+   * of a team in the Allstar_Team database, creates a PreparedStatement
+   * object with each parameter, and uses the PreparedStatement executeUpdate
+   * method to initiate the query within the database. This method also handles
+   * placing the new team in the correctly ranked position and setting
+   * the assistant coach to null if no assistant coach is entered.
+   * @throws SQLException
+   */
 
   public void insertTeam() throws SQLException {
     try {
@@ -296,6 +321,13 @@ public class Query {
     }
   }
 
+  /**
+   * The deletePlayer method accepts the SSN of a player that the user wishes
+   * to delete from the database, creates a PreparedStatement object with the 
+   * input parameters, and executes the update on the database.
+   * @throws SQLException
+   */
+
   public void deletePlayer() throws SQLException {
     String query = "" +
         "DELETE FROM PLAYERS " +
@@ -307,6 +339,13 @@ public class Query {
     p.executeUpdate();
   }
 
+  /**
+   * The deleteCoach method accepts the SSN of a coach that the user wishes
+   * to delete from the database, creates a PreparedStatement object with the 
+   * input parameters, and executes the update on the database.
+   * @throws SQLException
+   */
+
   public void deleteCoach() throws SQLException {
     String query = "" +
         "DELETE FROM COACH " +
@@ -317,6 +356,13 @@ public class Query {
     p.setInt(1, SSN);
     p.executeUpdate();
   }
+
+  /**
+   * The deleteTeam method accepts the Team ID of a team that the user wishes
+   * to delete from the database, creates a PreparedStatement object with the 
+   * input parameters, and executes the update on the database.
+   * @throws SQLException
+   */
 
   public void deleteTeam() throws SQLException {
     String query = "" +
