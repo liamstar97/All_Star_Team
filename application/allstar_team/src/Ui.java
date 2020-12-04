@@ -102,6 +102,10 @@ public class Ui {
         case 'q':
           quit = true;
           break;
+        case 'x':
+          CONNECTION.close();
+          System.exit(0);
+          break;
         default:
           println("not a valid input");
           break;
@@ -133,6 +137,10 @@ public class Ui {
           break;
         case 'q':
           quit = true;
+          break;
+        case 'x':
+          CONNECTION.close();
+          System.exit(0);
           break;
         default:
           println("not a valid input");
@@ -177,6 +185,10 @@ public class Ui {
         case 'q':
           quit = true;
           break;
+        case 'x':
+          CONNECTION.close();
+          System.exit(0);
+          break;
       }
     } while (!quit);
   }
@@ -190,7 +202,7 @@ public class Ui {
    * which houses all of the query-based functionality of the program.
    */
   
-  private void updatesMenu(Query query) {
+  private void updatesMenu(Query query) throws SQLException{
     boolean quit = false;
     do {
       printUpdatesMenu();
@@ -203,6 +215,10 @@ public class Ui {
           break;
         case 'q':
           quit = true;
+          break;
+        case 'x':
+          CONNECTION.close();
+          System.exit(0);
           break;
         default:
           System.out.println("Not an option.");
@@ -236,6 +252,10 @@ public class Ui {
             break;
           case 'q':
             quit = true;
+            break;
+          case 'x':
+            CONNECTION.close();
+            System.exit(0);
             break;
           default:
             println("Not an option.");
@@ -272,6 +292,10 @@ public class Ui {
             break;
           case 'q':
             quit = true;
+            break;
+          case 'x':
+            CONNECTION.close();
+            System.exit(0);
             break;
           default:
             println("Not an option.");
