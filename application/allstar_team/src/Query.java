@@ -1,3 +1,10 @@
+/*
+ * Name: Query.java
+ * Authors: Kyle White, Mathew Tkachuk, Liam Thompson
+ * Date: 12/3/2020
+ * --------------------------
+ * Description: This class contains query methods returning results to the console, some ask for user defined input.
+ */
 import java.sql.*;
 import java.io.*;
 import java.sql.Date;
@@ -112,7 +119,8 @@ public class Query {
       String score = results.getString(3);
       String coach = results.getString(4);
       String assistantCoach = results.getString(5);
-      println("(" + date + ") " + location + ", Score: " + score + ", Coach: " + coach + ", Assistant Coach: " + assistantCoach);
+      println("(" + date + ") " + location +
+          ", Score: " + score + ", Coach: " + coach + ", Assistant Coach: " + assistantCoach);
     }
   }
 
@@ -255,7 +263,8 @@ public class Query {
           "Please enter the SSN of an existing coach who is not currently the coach of a team: \n"));
       p.setInt(3, coachSSN);
 
-      String stringAssCoach = readEntry("Please enter the SSN of an existing assistant coach who is not currently part of a team, enter q if no assistance coach: \n");
+      String stringAssCoach = readEntry("Please enter the SSN of an existing assistant coach who is " +
+          "not currently part of a team, enter q if no assistance coach: \n");
       if (!stringAssCoach.equals("q")) {
         int assCoachSSN = Integer.parseInt(stringAssCoach);
         p.setInt(4, assCoachSSN);

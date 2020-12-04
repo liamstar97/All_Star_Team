@@ -1,3 +1,11 @@
+/*
+ * Name: Ui.java
+ * Authors: Kyle White, Mathew Tkachuk, Liam Thompson
+ * Date: 12/3/2020
+ * --------------------------
+ * Description: This class contains all Ui menus and their sub menus which calls query methods in Query.java printing
+ *              results to the console.
+ */
 import java.sql.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,6 +14,9 @@ import java.util.Scanner;
 
 public class Ui {
 
+  /**
+   * global private Connection variable
+   */
   private final Connection CONNECTION;
 
   /**
@@ -133,7 +144,7 @@ public class Ui {
 
   /**
    * browse menu that displays a specified teams players and ranks!
-   * @param query
+   * @param query query object
    * @throws SQLException
    */
   private void browseMenu(Query query) throws SQLException  {
@@ -144,7 +155,7 @@ public class Ui {
 
   /**
    * statsMenu has switch case that takes in user's input using getOption() then calls the corresponding query
-   * @param query
+   * @param query query object
    * @throws SQLException
    */
   private void statsMenu(Query query) throws SQLException {
@@ -171,6 +182,10 @@ public class Ui {
     } while (!quit);
   }
 
+  /**
+   * displays submenus for update operations
+   * @param query query object
+   */
   private void updatesMenu(Query query) {
     boolean quit = false;
     do {
@@ -192,6 +207,10 @@ public class Ui {
     } while (!quit);
   }
 
+  /**
+   * displays possible insert operations
+   * @param query query object
+   */
   private void insertMenu(Query query) {
     boolean quit = false;
     do {
@@ -220,6 +239,10 @@ public class Ui {
     } while (!quit);
   }
 
+  /**
+   * displays possible delete operations
+   * @param query query object
+   */
   private void deleteMenu(Query query) {
     boolean quit = false;
     do {
@@ -248,6 +271,9 @@ public class Ui {
     } while (!quit) ;
   }
 
+  /**
+   * header for main menu
+   */
   private void printMainMenu() {
     println("***********************************************************");
     println("                       ***********                         ");
@@ -260,6 +286,9 @@ public class Ui {
     println("                         q. Quit");
   }
 
+  /**
+   * header for stats menu
+   */
   private void printStatsMenu() {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
@@ -270,6 +299,9 @@ public class Ui {
     println("q. Quit");
   }
 
+  /**
+   * header for browse and search menu
+   */
   private void printBrowseAndSearchMenu() {
     println("***********************************************************");
     println("                Browse & Search the Database               ");
@@ -279,13 +311,18 @@ public class Ui {
     println("                         q. Back");
   }
 
+  /**
+   * header for browse menu
+   */
   private void printBrowseMenu() {
     println("***********************************************************");
     println("                       Browse Nominees                     ");
     println("***********************************************************");
-    println("                          q. Back ");
   }
 
+  /**
+   * header for search menu
+   */
   private void printSearchMenu() {
     println("***********************************************************");
     println("                           Search                          ");
@@ -296,6 +333,9 @@ public class Ui {
     println("                         q. Back");
   }
 
+  /**
+   * header for updates menu
+   */
   private void printUpdatesMenu() {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
@@ -306,6 +346,9 @@ public class Ui {
     println("q. Return to Main Menu");
   }
 
+  /**
+   * header for updates sub menu inserts
+   */
   private void printInsertMenu() {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
@@ -317,6 +360,9 @@ public class Ui {
     println("q. Return to Updates Menu");
   }
 
+  /**
+   * header for updates sub menu delete
+   */
   private void printDeleteMenu() {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
@@ -328,6 +374,10 @@ public class Ui {
     println("q. Return to Updates Menu");
   }
 
+  /**
+   * gets user input for menu options
+   * @return user input option
+   */
   private char getOption() {
     print("Type in your option: ");
     System.out.flush();
@@ -340,11 +390,18 @@ public class Ui {
     return option;
   }
 
+  /**
+   * pauses menu and waits for user to press enter
+   */
   private void pauseMenu() { // TODO: fix bug where enter must be pressed twice if console looses focus
     print("Press 'enter' to go back");
     readLine();
   }
 
+  /**
+   * reads entire line of user input and returns it
+   * @return string of user input
+   */
   private String readLine() {
     InputStreamReader isr = new InputStreamReader(System.in);
     BufferedReader br = new BufferedReader(isr, 1);
@@ -359,6 +416,11 @@ public class Ui {
     return line;
   }
 
+  /**
+   * reads user input and returns it
+   * @param prompt takes a string as a prompt for user input
+   * @return string of user input
+   */
   private String readEntry(String prompt) {
     try {
       StringBuffer buffer = new StringBuffer();
