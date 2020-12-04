@@ -119,7 +119,7 @@ public class Ui {
     do{
       switch (getOption()) {
         default:
-          println(" Not a valid option ");
+          println("Not a valid option\n");
           break;
         case '1':
           query.playerRank();
