@@ -8,6 +8,10 @@ public class Ui {
 
   private final Connection CONNECTION;
 
+  /**
+   * Constructs a Ui Object
+   * @throws SQLException
+   */
   public Ui() throws SQLException {
     Connection conn = login();
     CONNECTION = conn;
@@ -15,10 +19,19 @@ public class Ui {
     mainMenu(conn, query);
   }
 
+  /**
+   * getter for Connection object
+   * @return connection
+   */
   public Connection getConnection() {
     return CONNECTION;
   }
 
+  /**
+   * prompts user for a username and password to login to the database
+   * @return returns a connection
+   * @throws SQLException
+   */
   private Connection login() throws SQLException {
     String url = "jdbc:mysql://cs331.chhxghxty6xs.us-west-2.rds.amazonaws.com:3306/" +
         "Allstar_Team?serverTimezone=UTC&useSSL=TRUE";
@@ -28,6 +41,12 @@ public class Ui {
     return DriverManager.getConnection(url, user, pass);
   }
 
+  /**
+   * the main menu is the first menu displayed to the user containing three sub menus
+   * @param conn connection
+   * @param query query object
+   * @throws SQLException
+   */
   private void mainMenu(Connection conn, Query query) throws SQLException {
     boolean quit = false;
     do {
@@ -54,6 +73,11 @@ public class Ui {
     } while (!quit);
   }
 
+  /**
+   * displays browse and search menu containing two sub menus
+   * @param query query object
+   * @throws SQLException
+   */
   private void browseAndSearchMenu(Query query) throws SQLException {
     boolean quit = false;
     do {
@@ -75,6 +99,11 @@ public class Ui {
     } while (!quit);
   }
 
+  /**
+   * displays search menu containing three submenus
+   * @param query query object
+   * @throws SQLException
+   */
   private void searchMenu(Query query) throws SQLException {
     boolean quit = false;
     do {
@@ -102,15 +131,15 @@ public class Ui {
     } while (!quit);
   }
 
+  /**
+   * browse menu that displays a specified teams players and ranks!
+   * @param query
+   * @throws SQLException
+   */
   private void browseMenu(Query query) throws SQLException  {
     printBrowseMenu();
     query.listNominees();
     pauseMenu();
-  }
-
-  private void pauseMenu() { // TODO: fix bug where enter must be pressed twice if console looses focus
-    print("Press 'enter' to go back");
-    readLine();
   }
 
   private void statsMenu(Query query) throws SQLException {
@@ -307,6 +336,11 @@ public class Ui {
       option = userInput.toLowerCase().charAt(0);
     }
     return option;
+  }
+
+  private void pauseMenu() { // TODO: fix bug where enter must be pressed twice if console looses focus
+    print("Press 'enter' to go back");
+    readLine();
   }
 
   private String readLine() {
