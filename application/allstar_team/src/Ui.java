@@ -113,6 +113,7 @@ public class Ui {
     readLine();
   }
 
+  /**statsMenu has switch case that takes in user's input using getOption() then calls the corresponding query**/
   private void statsMenu(Query query) throws SQLException {
     boolean quit = false;
     printStatsMenu();
@@ -320,10 +321,12 @@ public class Ui {
     println("q. Return to Updates Menu");
   }
 
+  /**Utility method for shorthand printing**/
   private void print(Object s) {
     System.out.print(s);
   }
 
+  /**Utility method for shorthand printing**/
   private void println(Object s) {
     System.out.println(s);
   }
