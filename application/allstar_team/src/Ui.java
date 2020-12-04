@@ -292,10 +292,10 @@ public class Ui {
     println("            Welcome to Selecting an All-Star Team          ");
     println("                       ***********                         ");
     println("***********************************************************");
-    println("             1. Search & Browse the Database");
-    println("             2. Statistics & Data Mining");
-    println("             3. Updates");
-    println("                         q. Quit");
+    println(" 1. Search & Browse the Database");
+    println(" 2. Statistics & Data Mining");
+    println(" 3. Updates");
+    println(" q. Quit");
   }
 
   /**
@@ -305,10 +305,10 @@ public class Ui {
     println("***********************************************************");
     println("            Select an All-Star Team Application            ");
     println("***********************************************************");
-    println("              1. Score");
-    println("              2. Wins per team");
-    println("              3. Championship participation");
-    println("q. Quit");
+    println(" 1. Score");
+    println(" 2. Wins per team");
+    println(" 3. Championship participation");
+    println(" q. Quit");
   }
 
   /**
@@ -318,9 +318,9 @@ public class Ui {
     println("***********************************************************");
     println("                Browse & Search the Database               ");
     println("***********************************************************");
-    println("                   1. Browse Nominees");
-    println("                   2. Search Nominees");
-    println("                        q. Back");
+    println(" 1. Browse Nominees");
+    println(" 2. Search Nominees");
+    println(" q. Back");
   }
 
   /**
@@ -339,10 +339,10 @@ public class Ui {
     println("***********************************************************");
     println("                           Search                          ");
     println("***********************************************************");
-    println("                       1. Team Info");
-    println("                       2. Game Info");
-    println("                       3. Coach Info");
-    println("                         q. Back");
+    println(" 1. Team Info");
+    println(" 2. Game Info");
+    println(" 3. Coach Info");
+    println(" q. Back");
   }
 
   /**
@@ -355,9 +355,9 @@ public class Ui {
     println("            Select an All-Star Team Application            ");
     println("                       3. Updates                          ");
     println("***********************************************************");
-    println("1. Insert New Information");
-    println("2. Delete Information");
-    println("q. Return to Main Menu");
+    println(" 1. Insert New Information");
+    println(" 2. Delete Information");
+    println(" q. Return to Main Menu");
   }
 
   /**
@@ -370,10 +370,10 @@ public class Ui {
     println("            Select an All-Star Team Application            ");
     println("              3. Updates - Insert Information              ");
     println("***********************************************************");
-    println("1. Add a New Player");
-    println("2. Add a New Coach");
-    println("3. Add a New Team");
-    println("q. Return to Updates Menu");
+    println(" 1. Add a New Player");
+    println(" 2. Add a New Coach");
+    println(" 3. Add a New Team");
+    println(" q. Return to Updates Menu");
   }
 
   /**
@@ -386,10 +386,10 @@ public class Ui {
     println("            Select an All-Star Team Application            ");
     println("              3. Updates - Delete Information              ");
     println("***********************************************************");
-    println("1. Delete a Specific Player");
-    println("2. Delete a Specific Coach");
-    println("3. Delete a Specific Team");
-    println("q. Return to Updates Menu");
+    println(" 1. Delete a Specific Player");
+    println(" 2. Delete a Specific Coach");
+    println(" 3. Delete a Specific Team");
+    println(" q. Return to Updates Menu");
   }
 
   /**
